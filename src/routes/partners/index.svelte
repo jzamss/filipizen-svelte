@@ -1,5 +1,6 @@
 <script>
 	import FilipizenLayout from '$lib/ui/FilipizenLayout.svelte';
+	import LinearProgress from '@smui/linear-progress';
 	// import PartnerList from '$lib/partners/PartnerList.svelte';
 	// import { getPartners } from '$lib/partners/partners-store';
 
@@ -11,5 +12,16 @@
 </svelte:head>
 
 <FilipizenLayout>
-	<h1>Partners</h1>
+	<div slot="progress">
+		<LinearProgress indeterminate />
+	</div>
+	<div class="container">
+		<h1>Partners</h1>
+	</div>
 </FilipizenLayout>
+
+<style>
+	.container {
+		background-color: red;
+	}
+</style>

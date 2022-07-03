@@ -24,3 +24,7 @@ h1 {
 .bg-gray-200 {
 	background-color: rgb(229 231 235);
 }
+
+body {
+	background-color: #f5f5f5;
+}

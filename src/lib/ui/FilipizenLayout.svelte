@@ -6,10 +6,9 @@
 <div class="container">
 	<NavBar />
 	<slot name="header" />
+	<slot name="progress" />
 	<main>
-		<div class="main-content">
-			<slot />
-		</div>
+		<slot />
 	</main>
 	<Footer />
 </div>
@@ -20,15 +19,10 @@
 		flex-direction: column;
 	}
 	main {
-		min-height: 95vh;
-		display: flex;
-		flex-grow: 1;
-	}
-
-	/* class="max-w-7xl mx-auto py-6 px-6 md:px-10 lg:px-12" */
-	.main-content {
-		max-width: 768px;
+		width: 100%;
 		margin: 0 auto;
-		padding: 6px;
+		min-height: 95vh;
+		max-width: 768px;
+		padding: 20px 20px;
 	}
 </style>
