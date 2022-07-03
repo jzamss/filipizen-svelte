@@ -13,7 +13,7 @@
 		line-height: 1.125rem;
 		font-size: 0.825rem;
 		color: black;
-		opacity: 0.8;
+		color: #8b8b8b;
 	}
 
 	a:hover {

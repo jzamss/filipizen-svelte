@@ -6,16 +6,23 @@
 
 <style>
 	nav {
-		padding: 10px 10px;
+		padding: 5px 0px;
 	}
 
 	div {
-		padding: 10 20;
+		padding: 5px 20px;
+		width: 100%;
 	}
 
 	@media (min-width: 480px) {
-		nav {
-			padding: 10px 60px;
+		div {
+			padding: 5px 40px;
+		}
+	}
+
+	@media (min-width: 980px) {
+		div {
+			padding: 5px 100px;
 		}
 	}
 </style>

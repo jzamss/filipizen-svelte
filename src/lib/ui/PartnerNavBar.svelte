@@ -1,0 +1,48 @@
+<script>
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+	import partners from '$lib/stores/partners.js';
+
+	const { partnername, groupname } = $page.params;
+	let partner = {};
+
+	onMount(async () => {
+		await partners.load();
+		partner = partners.findByNames({ partnername, groupname });
+	});
+</script>
+
+<div class="container">
+	{#if partner.id}
+		<img src={`/assets/${partner.id}.png`} alt={partner.title} width="40" />
+		<h2>{partner.title}</h2>
+	{/if}
+</div>
+
+<style>
+	.container {
+		padding: 5px 20px;
+		background-color: rgb(44, 62, 80);
+		display: flex;
+		align-items: center;
+	}
+
+	h2 {
+		color: white;
+		font-size: 1.5rem;
+		margin-left: 10px;
+		font-weight: 600;
+	}
+
+	@media (min-width: 480px) {
+		.container {
+			padding: 5px 40px;
+		}
+	}
+
+	@media (min-width: 980px) {
+		.container {
+			padding: 5px 100px;
+		}
+	}
+</style>

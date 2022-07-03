@@ -132,7 +132,7 @@
 		text-align: center;
 		font-size: 0.725rem;
 		padding: 5px 0;
-		opacity: 0.8;
+		color: #8b8b8b;
 	}
 	.copyright a {
 		text-decoration: none;
@@ -144,12 +144,12 @@
 		text-transform: uppercase;
 		padding-top: 10px;
 		padding-bottom: 5px;
-		opacity: 0.8;
+		color: #8b8b8b;
 	}
 
 	span {
 		font-size: 0.825rem;
-		opacity: 0.9;
+		color: #8b8b8b;
 		line-height: 1.25rem;
 		margin-left: 5px;
 	}
