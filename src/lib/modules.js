@@ -4,7 +4,7 @@ const modules = [
 		title: 'Business',
 		services: [
 			{
-				name: 'businessbilling',
+				name: 'billing',
 				title: 'Business Online Billing',
 				permission: 'bpls.billing'
 			},
@@ -27,12 +27,12 @@ const modules = [
 			{
 				name: 'rptbilling',
 				title: 'Realty Tax Online Billing',
-				component: 'RptBillingWebController'
+				permission: 'rptis.billing'
 			},
 			{
 				name: 'rpttaxclearance',
 				title: 'Online Realty Tax Clearance',
-				component: 'RealtyTaxClearanceWebController'
+				permission: 'rptis.taxclearance'
 			}
 		]
 	},
@@ -44,7 +44,8 @@ const modules = [
 			{
 				name: 'waterworksbilling',
 				title: 'Waterworks Billing',
-				component: 'WaterworksBillingWebController'
+				component: 'WaterworksBillingWebController',
+				permission: 'waterworks.billing'
 			}
 		]
 	},
@@ -55,7 +56,7 @@ const modules = [
 			{
 				name: 'terminalpass',
 				title: 'Terminal Pass',
-				component: 'TerminalTicketWebController'
+				permission: 'ticketing.terminalpass'
 			}
 		]
 	},
@@ -66,7 +67,7 @@ const modules = [
 			{
 				name: 'po',
 				title: 'Online Payment Order',
-				component: 'PoWebController'
+				permission: 'po.po'
 			}
 		]
 	},
@@ -78,37 +79,37 @@ const modules = [
 			{
 				name: 'bldgpermit',
 				title: 'Building Permit Application',
-				component: 'BuildingPermitWebController'
+				permission: 'obo.bldgpermit'
 			},
 			{
 				name: 'occupancypermit',
 				title: 'Certificate of Occupancy Application',
-				component: 'OccupancyPermitWebController'
+				permission: 'obo.occupancypermit'
 			},
 			{
 				name: 'registerprofessionals',
 				title: 'Register Professional',
-				component: 'ProfessionalWebController'
+				permission: 'obo.registerprof'
 			},
 			{
 				name: 'updateprofessional',
 				title: 'Update Professional',
-				component: 'UpdateProfessionalWebController'
+				permission: 'obo.upateprof'
 			},
 			{
 				name: 'apptracking',
 				title: 'Application Tracking',
-				component: 'AppTrackingWebController'
+				permission: 'obo.apptracking'
 			},
 			{
 				name: 'obobilling',
 				title: 'OSCP Online Billing and Payment',
-				component: 'OboBillingWebController'
+				permission: 'obo.obobilling'
 			},
 			{
 				name: 'ptrbilling',
 				title: 'Pay PTR (Professional Tax Receipt)',
-				component: 'PtrBillingWebController'
+				permission: 'obo.ptrbilling'
 			}
 		]
 	}
@@ -126,7 +127,8 @@ export const getModules = (partner) => {
 	const partnerModules = JSON.parse(JSON.stringify(modules));
 	partnerModules.forEach((module) => {
 		const partnerServices = module.services.filter(
-			(service) => regex.test(service.name) && (!excludeRegex || !excludeRegex.test(service.name))
+			(service) =>
+				regex.test(service.permission) && (!excludeRegex || !excludeRegex.test(service.permission))
 		);
 		module.services = partnerServices;
 	});
@@ -134,25 +136,13 @@ export const getModules = (partner) => {
 	return partnerModules.filter((module) => module.services.length > 0);
 };
 
-const serviceModules = {};
-
-export const getServiceModule = (service) => {
-	let ServiceModule = serviceModules[service.module];
-	if (typeof ServiceModule === 'undefined') {
-		if (service.module === 'bpls') {
-			ServiceModule = loadable.lib(() => import('filipizen-bpls'));
-		} else if (service.module === 'rptis') {
-			ServiceModule = loadable.lib(() => import('filipizen-rptis'));
-		} else if (service.module === 'waterworks') {
-			ServiceModule = loadable.lib(() => import('filipizen-waterworks'));
-		} else if (service.module === 'obo') {
-			ServiceModule = loadable.lib(() => import('filipizen-obo'));
-		} else if (service.module === 'ticketing') {
-			ServiceModule = loadable.lib(() => import('filipizen-ticketing'));
-		} else if (service.module === 'po') {
-			ServiceModule = loadable.lib(() => import('filipizen-po'));
-		}
-		serviceModules[service.module] = ServiceModule;
-	}
-	return ServiceModule;
+export const getServiceComponent = ({ modulename, servicename }) => {
+	const partnerModules = JSON.parse(JSON.stringify(modules));
+	const module = partnerModules.find((module) => module.name === modulename);
+	if (!module) throw new Error(`Invalid module ${modulename}`);
+	console.log('module', module);
+	const service = module.services.find((service) => service.name === servicename);
+	if (!service) throw new Error(`Invalid service ${servicename}`);
+	console.log('service', service);
+	return service.component;
 };

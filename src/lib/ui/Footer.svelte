@@ -19,7 +19,7 @@
 <footer>
 	<div class="copyright bg-gray-200">
 		<span>© {cy} Copyright &nbsp;</span>
-		<a href="www.ramesesinc.com">Rameses Systems Inc.</a>
+		<a href="www.ramesesinc.com" tabindex="-1">Rameses Systems Inc.</a>
 	</div>
 	<div class="container">
 		<div style="margin-right: 30px;">

@@ -4,7 +4,7 @@
 </script>
 
 <p class="">
-	<a {href}>{title}</a>
+	<a {href} tabindex="-1">{title}</a>
 </p>
 
 <style>

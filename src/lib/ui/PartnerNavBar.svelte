@@ -14,7 +14,9 @@
 
 <div class="container">
 	{#if partner.id}
-		<img src={`/assets/${partner.id}.png`} alt={partner.title} width="40" />
+		<a href="/partners" alt="Goto partners">
+			<img src={`/assets/${partner.id}.png`} alt={partner.title} width="40" />
+		</a>
 		<h2>{partner.title}</h2>
 	{/if}
 </div>
