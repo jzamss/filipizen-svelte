@@ -1,5 +1,5 @@
 <script>
-	import BillingController from '$lib/components/bpls/billing/BillingController.svelte';
+	import BillingController from '$lib/components/bpls/billing/index.svelte';
 </script>
 
 <BillingController />

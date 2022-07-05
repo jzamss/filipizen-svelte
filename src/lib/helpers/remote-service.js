@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { cloudFilipizenServerUrl } from '$lib/settings.js';
+import { cloudFilipizenServerUrl, cloudGdxNodeServerUrl } from '$lib/settings.js';
 
 const CHANNEL = '/gdx';
 
@@ -66,7 +66,7 @@ const LocalProxy = (name, connection, module) => {
 };
 
 const RemoteProxy = (name, channel, connection, module) => {
-	const socket = io(CHANNEL);
+	const socket = io(`${cloudGdxNodeServerUrl}${CHANNEL}`);
 	socket.connect();
 
 	const asyncFetch = async (method, args) => {
@@ -114,7 +114,7 @@ const RemoteProxy = (name, channel, connection, module) => {
 *
 ========================================================*/
 const AsyncRemoteProxy = (name, channel, connection, module) => {
-	const socket = io(CHANNEL);
+	const socket = io(`${cloudGdxNodeServerUrl}${CHANNEL}`);
 	socket.connect();
 
 	const invoke = async (method, args, handler) => {
