@@ -1,7 +1,22 @@
-export const getData = async (url, options = {}) => {
+export const encodeParams = (param) => {
+	return Object.keys(param)
+		.reduce((arr, key) => {
+			if (param.hasOwnProperty(key)) {
+				arr.push(`${key}=${param[key]}`);
+			} else {
+				arr;
+			}
+			return arr;
+		}, [])
+		.join('&');
+};
+
+export const getData = async (url, params = {}, options = {}) => {
+	const searchParams = encodeParams(params);
+
 	let res = null;
 	try {
-		res = await fetch(url, options);
+		res = await fetch(searchParams ? `${url}?${searchParams}` : url, options);
 	} catch (error) {
 		throw new Error('A server error is encountered. Please try again later.');
 	}

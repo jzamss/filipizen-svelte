@@ -1,28 +1,42 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 	import Paper, { Content } from '@smui/paper';
-	import Button from '@smui/button';
-	import TextField from '@smui/textfield';
-	import HelperText from '@smui/textfield/helper-text';
+	import Button from '$lib/ui/Button.svelte';
+	import TextField from '$lib/ui/TextField.svelte';
 	import Title from '$lib/ui/Title.svelte';
 	import Subtitle from '$lib/ui/Subtitle.svelte';
 	import ActionBar from '$lib/ui/ActionBar.svelte';
+	import { getData } from '$lib/helpers/fetch.js';
 
 	const dispatch = createEventDispatcher();
 
 	export let title;
+	export let partner;
 
+	let processing = false;
 	let refno = '';
+	let qtr = 4;
+	let invalid = false;
 
 	$: valid = refno && refno.trim().length > 0;
-	$: error = 'BIN or application number is required';
+	$: error = 'BIN or application number is invalid';
 
-	const backHandler = () => {
+	const onCancel = () => {
 		dispatch('cancel');
 	};
 
-	const nextHandler = () => {
-		dispatch('submit', { refno });
+	const loadBill = async () => {
+		processing = true;
+		const params = {
+			partnerid: partner.id,
+			txntype: 'bpls',
+			refno,
+			qtr
+		};
+		const bill = await getData('/api/bpls/bill', params);
+		console.log('bill', bill);
+		processing = false;
+		dispatch('submit', bill);
 	};
 </script>
 
@@ -33,12 +47,18 @@
 			<Subtitle>Initial Information</Subtitle>
 
 			<p>Enter a valid Business Identification Number (BIN) or Application No.</p>
-			<TextField bind:value={refno} label="BIN or Application No." fullWidth required>
-				<HelperText validationMsg slot="helper">{error}</HelperText>
-			</TextField>
+			<TextField
+				bind:value={refno}
+				bind:invalid
+				updateInvalid
+				label="BIN or Application No."
+				fullWidth
+				required
+				validationMsg={error}
+			/>
 			<ActionBar>
-				<Button on:click={backHandler}>Cancel</Button>
-				<Button on:click={nextHandler} variant="raised" disabled={!valid}>Next</Button>
+				<Button on:click={onCancel} label="Cancel" />
+				<Button on:click={loadBill} label="Next" variant="raised" disabled={!valid} {processing} />
 			</ActionBar>
 		</Content>
 	</Paper>
