@@ -96,7 +96,7 @@
 						{ label: 'Total', expr: 'total', type: 'numeric' }
 					]}
 					totals={[
-						{ label: 'TOTAL :', colspan: 4, type: 'numeric', style: 'font-weight: bold;' },
+						{ label: 'Bill Amount :', colspan: 4, type: 'numeric', style: 'font-weight: bold;' },
 						{ label: currencyFormat($bill.amount), type: 'numeric' }
 					]}
 				>

@@ -19,9 +19,7 @@
 	});
 
 	let title = 'Business Online Billing';
-	//TODO: uncomment
-	// mode.set('verify-contact');
-	mode.set('bill');
+	mode.set('verify-contact');
 
 	const displayBill = (evt) => {
 		bill.set(evt.detail);
