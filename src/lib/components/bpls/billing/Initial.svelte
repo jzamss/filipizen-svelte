@@ -5,6 +5,7 @@
 	import TextField from '$lib/ui/TextField.svelte';
 	import Title from '$lib/ui/Title.svelte';
 	import Subtitle from '$lib/ui/Subtitle.svelte';
+	import Error from '$lib/ui/Error.svelte';
 	import ActionBar from '$lib/ui/ActionBar.svelte';
 	import { getData } from '$lib/helpers/fetch.js';
 
@@ -27,15 +28,22 @@
 
 	const loadBill = async () => {
 		processing = true;
-		const params = {
+		const res = await getData('/api/bpls/bill', {
 			partnerid: partner.id,
 			txntype: 'bpls',
 			refno,
 			qtr
-		};
-		const bill = await getData('/api/bpls/bill', params);
+		});
+
+		error = res.error;
+		if (error) {
+			invalid = true;
+		}
+
 		processing = false;
-		dispatch('submit', bill);
+		if (!error) {
+			dispatch('submit', res.data);
+		}
 	};
 </script>
 
@@ -49,7 +57,6 @@
 			<TextField
 				bind:value={refno}
 				bind:invalid
-				updateInvalid
 				label="BIN or Application No."
 				fullWidth
 				required
@@ -57,7 +64,13 @@
 			/>
 			<ActionBar>
 				<Button on:click={onCancel} label="Cancel" />
-				<Button on:click={loadBill} label="Next" variant="raised" disabled={!valid} {processing} />
+				<Button
+					on:click={loadBill}
+					label="Next"
+					variant="raised"
+					disabled={!valid || processing}
+					{processing}
+				/>
 			</ActionBar>
 		</Content>
 	</Paper>

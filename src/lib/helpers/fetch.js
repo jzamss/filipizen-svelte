@@ -18,7 +18,12 @@ export const getData = async (url, params = {}, options = {}) => {
 		const res = await fetch(searchParams ? `${url}?${searchParams}` : url, options);
 
 		if (res.ok) {
-			return { data: await res.json() };
+			const data = await res.json();
+			if (data.error) {
+				return { error: data.error };
+			} else {
+				return { data };
+			}
 		} else {
 			return { error: 'A data error is encountered. Please try again.' };
 		}
@@ -42,7 +47,12 @@ export const postData = async (url, data, options) => {
 		});
 
 		if (res.ok) {
-			return { data: await res.json() };
+			const data = await res.json();
+			if (data.error) {
+				return { error: data.error };
+			} else {
+				return { data };
+			}
 		} else {
 			return { error: 'A data error is encountered. Please try again.' };
 		}

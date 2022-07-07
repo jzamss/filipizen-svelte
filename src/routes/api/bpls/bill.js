@@ -8,9 +8,15 @@ export const get = async ({ url }) => {
 
 	const params = { partnerid, txntype, refno, qtr, showdetails: true };
 	const svc = Service.lookupAsync(`${partnerid}:OnlineBusinessBillingService`, 'bpls');
-	const data = await svc.invoke('getBilling', params);
 
-	return {
-		body: data.info
-	};
+	try {
+		const data = await svc.invoke('getBilling', params);
+		return {
+			body: data.info
+		};
+	} catch (err) {
+		return {
+			body: { error: err }
+		};
+	}
 };

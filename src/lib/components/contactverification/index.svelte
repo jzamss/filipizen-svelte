@@ -38,7 +38,6 @@
 	const generateOtp = async () => {
 		processing = true;
 		const res = await postData('/api/email/generateotp', { contact, partner });
-		console.log('res', res);
 		error = res.error;
 		if (!error) {
 			otp = res.data.otp;
@@ -49,11 +48,14 @@
 	const submitContact = async () => {
 		if (invalidEmail) return;
 		await generateOtp();
-		mode = 'verify-otp';
+		if (!error) {
+			mode = 'verify-otp';
+		}
 	};
 
 	const resendOtp = () => {
 		generateOtp();
+		isResendOtp = false;
 	};
 
 	const verifyOtp = () => {
@@ -71,7 +73,9 @@
 		<Content style="display: flex; flex-direction: column; padding: 0 10px;">
 			<Title>{title}</Title>
 			<Subtitle>Email Verification</Subtitle>
-
+			{#if error && !processing}
+				<Error {error} />
+			{/if}
 			{#if mode === 'initial'}
 				<p>
 					A validation key will be sent to your email. Please make sure your email is valid and you

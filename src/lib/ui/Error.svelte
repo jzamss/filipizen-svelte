@@ -1,9 +1,16 @@
 <script>
 	export let error;
+
+	let ref = null;
+	export const focus = () => {
+		if (ref) {
+			ref.focus();
+		}
+	};
 </script>
 
 {#if error}
-	<div>{error}</div>
+	<div bind:this={ref} tabindex="0">{error}</div>
 {/if}
 
 <style>

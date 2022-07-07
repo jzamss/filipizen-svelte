@@ -20,6 +20,7 @@
 	export let partner;
 	export let bill;
 
+	let errorRef = undefined;
 	let processing = false;
 	let error = false;
 	let showPayOption = false;
@@ -55,7 +56,9 @@
 		});
 
 		error = res.error;
-		if (!error) {
+		if (error) {
+			errorRef.focus();
+		} else {
 			bill.set(res.data);
 		}
 		processing = false;
@@ -69,7 +72,7 @@
 			<Content style="display: flex; flex-direction: column; padding: 0 10px;">
 				<Title>{title}</Title>
 				<Subtitle>Billing Information</Subtitle>
-				<Error {error} />
+				<Error bind:this={errorRef} {error} />
 				<Label bind:value={$bill.appno} label="Application No." />
 				<Label bind:value={$bill.apptype} label="Application Type" />
 				<Label bind:value={$bill.appdate} label="Date Filed" />
