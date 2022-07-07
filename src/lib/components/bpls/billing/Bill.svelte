@@ -40,7 +40,7 @@
 		dispatch('cancel');
 	};
 
-	const onSubmit = () => {
+	const confirmPayment = () => {
 		dispatch('submit');
 	};
 
@@ -117,7 +117,7 @@
 				<ActionBar>
 					<Button on:click={onCancel} label="Cancel" />
 					<Button
-						on:click={onSubmit}
+						on:click={confirmPayment}
 						label="Confirm Payment"
 						variant="raised"
 						disabled={processing}

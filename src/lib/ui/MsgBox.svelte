@@ -7,13 +7,17 @@
 
 	export let open = false;
 	export let title = '';
+	export let type = 'alert';
+	export let acceptCaption = 'OK';
+	export let cancelCaption = 'No';
+	export let processing = false;
 
-	const noHandler = () => {
+	const onCancel = () => {
 		dispatch('cancel');
 	};
 
-	const yesHandler = () => {
-		dispatch('ok');
+	const onAccept = () => {
+		dispatch('accept');
 	};
 </script>
 
@@ -21,7 +25,9 @@
 	<Title>{title}</Title>
 	<Content><slot /></Content>
 	<Actions>
-		<Button on:click={noHandler} label="No" />
-		<Button on:click={yesHandler} label="Yes" />
+		{#if type !== 'alert'}
+			<Button on:click={onCancel} label={cancelCaption} disabled={processing} />
+		{/if}
+		<Button on:click={onAccept} label={acceptCaption} disabled={processing} variant="outlined" />
 	</Actions>
 </Dialog>

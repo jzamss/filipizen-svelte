@@ -2,11 +2,14 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import bill, { contact } from '$lib/stores/bill.js';
+	import bill, { contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
 	import partners from '$lib/stores/partners.js';
 
-	import Container from '$lib/ui/Container.svelte';
 	import ContactVerification from '$lib/components/contactverification/index.svelte';
+	import CheckoutOrder from '$lib/components/epayment/CheckoutOrder.svelte';
+	import SelectPaymentPartner from '$lib/components/epayment/SelectPaymentPartner.svelte';
+	import OnlinePayment from '$lib/components/epayment/OnlinePayment.svelte';
+	import Container from '$lib/ui/Container.svelte';
 	import Initial from './Initial.svelte';
 	import Bill from './Bill.svelte';
 
@@ -15,7 +18,9 @@
 	let title = 'Business Online Billing';
 	let partner = {};
 
-	let mode = 'verify-contact';
+	//TODO: reset
+	// let mode = 'verify-contact';
+	let mode = 'payment';
 
 	onMount(async () => {
 		await partners.load();
@@ -27,8 +32,20 @@
 		mode = 'bill';
 	};
 
-	const confirmPayment = (evt) => {
+	const checkoutPayment = () => {
 		mode = 'checkout';
+	};
+
+	const confirmCheckout = (evt) => {
+		$payer = evt.detail.payer;
+		$payoptions = evt.detail.payoptions;
+		mode = 'payoptions';
+	};
+
+	const selectPaymentPartner = (evt) => {
+		$payoption = evt.detail;
+		console.log('payoption', $payoption);
+		mode = 'payment';
 	};
 </script>
 
@@ -65,6 +82,34 @@
 		{partner}
 		{bill}
 		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
-		on:submit={confirmPayment}
+		on:submit={checkoutPayment}
+	/>
+{/if}
+
+{#if mode === 'checkout'}
+	<CheckoutOrder
+		{title}
+		{partner}
+		{bill}
+		on:cancel={() => mode === 'bill'}
+		on:submit={confirmCheckout}
+	/>
+{/if}
+
+{#if mode === 'payoptions'}
+	<SelectPaymentPartner
+		{partner}
+		{bill}
+		on:cancel={() => mode === 'bill'}
+		on:select={selectPaymentPartner}
+	/>
+{/if}
+
+{#if mode === 'payment'}
+	<OnlinePayment
+		{partner}
+		{bill}
+		on:cancel={() => mode === 'bill'}
+		on:select={selectPaymentPartner}
 	/>
 {/if}

@@ -17,6 +17,6 @@
 	});
 </script>
 
-<TextField bind:this={ref} bind:value bind:invalid on:blur {...$$props}>
+<TextField bind:this={ref} bind:value bind:invalid on:blur {...$$props} style="margin-top: -5px;">
 	<HelperText validationMsg slot="helper">{validationMsg}</HelperText>
 </TextField>
