@@ -8,7 +8,6 @@ export const processing = writable(false);
 let billStore;
 
 const createStore = () => {
-	// billStore = writable({});
 	billStore = writable({});
 	const { subscribe, set, update } = billStore;
 
