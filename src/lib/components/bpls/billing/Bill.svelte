@@ -1,7 +1,7 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 	import Paper, { Content } from '@smui/paper';
-	import { Row, Cell } from '@smui/data-table';
+	import { Cell } from '@smui/data-table';
 	import Button from '$lib/ui/Button.svelte';
 	import Container from '$lib/ui/Container.svelte';
 	import Title from '$lib/ui/Title.svelte';
@@ -46,15 +46,20 @@
 	const recalcBill = async (evt) => {
 		processing = true;
 		billedQtr = evt.detail.billtoqtr;
-		const updatedBill = await getData('/api/bpls/bill', {
+
+		const res = await getData('/api/bpls/bill', {
 			partnerid: partner.id,
 			txntype: 'bpls',
 			refno: refno,
 			qtr: evt.detail.billtoqtr
 		});
+
+		error = res.error;
+		if (!error) {
+			bill.set(res.data);
+		}
 		processing = false;
 		showPayOption = false;
-		bill.set(updatedBill);
 	};
 </script>
 

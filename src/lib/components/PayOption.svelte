@@ -68,7 +68,7 @@
 	</div>
 	<Actions>
 		<Button on:click={onCancel} label="Cancel" />
-		<Button on:click={onSubmit} label="Submit" defaultAction />
+		<Button on:click={onSubmit} label="Submit" variant="outlined" defaultAction />
 	</Actions>
 </Dialog>
 

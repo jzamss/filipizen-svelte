@@ -6,17 +6,19 @@
 	import ActionBar from '$lib/ui/ActionBar.svelte';
 	import Button from '$lib/ui/Button.svelte';
 	import TextField from '$lib/ui/TextField.svelte';
+	import Error from '$lib/ui/Error.svelte';
 	import Dialog from '$lib/ui/Dialog.svelte';
 	import { isLength, isEmpty, isNonEmpty } from '$lib/helpers/helper.js';
 	import { postData } from '$lib/helpers/fetch.js';
-	import { mode, processing } from '$lib/stores/formstatus.js';
+
+	const dispatch = createEventDispatcher();
 
 	export let title = '';
 	export let partner = {};
 
-	const dispatch = createEventDispatcher();
-
-	mode.set('initial');
+	let mode = 'initial';
+	let processing = false;
+	let error = false;
 
 	let contact = { email: '', mobileno: '' };
 	let enteredOtp = '';
@@ -34,19 +36,24 @@
 	};
 
 	const generateOtp = async () => {
-		if (invalidEmail) return;
-		processing.set(true);
-		const data = await postData('/api/email/generateotp', { contact, partner });
-		otp = data.otp;
-		processing.set(false);
-		mode.set('verify-otp');
+		processing = true;
+		const res = await postData('/api/email/generateotp', { contact, partner });
+		console.log('res', res);
+		error = res.error;
+		if (!error) {
+			otp = res.data.otp;
+		}
+		processing = false;
 	};
 
-	const resendOtp = async () => {
-		processing.set(true);
-		const data = await postData('/api/email/generateotp', { contact, partner });
-		otp = data.otp;
-		processing.set(false);
+	const submitContact = async () => {
+		if (invalidEmail) return;
+		await generateOtp();
+		mode = 'verify-otp';
+	};
+
+	const resendOtp = () => {
+		generateOtp();
 	};
 
 	const verifyOtp = () => {
@@ -61,11 +68,11 @@
 
 <div>
 	<Paper>
-		<Content style="display: flex; flex-direction: column;">
+		<Content style="display: flex; flex-direction: column; padding: 0 10px;">
 			<Title>{title}</Title>
 			<Subtitle>Email Verification</Subtitle>
 
-			{#if $mode === 'initial'}
+			{#if mode === 'initial'}
 				<p>
 					A validation key will be sent to your email. Please make sure your email is valid and you
 					have access to it.
@@ -90,16 +97,16 @@
 				<ActionBar>
 					<Button on:click={backHandler} label="Back" />
 					<Button
-						on:click={generateOtp}
+						on:click={submitContact}
 						label="Next"
 						variant="raised"
-						processing={$processing}
-						disabled={!validContact || $processing}
+						{processing}
+						disabled={!validContact || processing}
 					/>
 				</ActionBar>
 			{/if}
 
-			{#if $mode === 'verify-otp'}
+			{#if mode === 'verify-otp'}
 				<p>
 					Please check your email inbox or spam for the sent 6-digit validation key. If you have not
 					received any email, please click resend code.
@@ -121,7 +128,7 @@
 					/>
 				</div>
 				<ActionBar>
-					<Button on:click={() => mode.set('initial')} label="Back" />
+					<Button on:click={() => (mode = 'initial')} label="Back" />
 					<Button on:click={verifyOtp} label="Next" variant="raised" disabled={!validOtp} />
 				</ActionBar>
 			{/if}

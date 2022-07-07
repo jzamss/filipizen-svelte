@@ -9,7 +9,10 @@
 <style>
 	div {
 		width: 100%;
-		padding: 15px 0;
+		padding: 10px 0;
+		margin-bottom: 10px;
+		font-size: 0.825rem;
+		font-weight: 500;
 		text-align: center;
 		background-color: beige;
 		color: rgb(194, 0, 0);

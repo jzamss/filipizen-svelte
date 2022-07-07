@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import bill, { contact, mode, processing } from '$lib/stores/bill.js';
+	import bill, { contact } from '$lib/stores/bill.js';
 	import partners from '$lib/stores/partners.js';
 
 	import Container from '$lib/ui/Container.svelte';
@@ -11,23 +11,24 @@
 	import Bill from './Bill.svelte';
 
 	const { groupname, partnername } = $page.params;
+
+	let title = 'Business Online Billing';
 	let partner = {};
+
+	let mode = 'verify-contact';
 
 	onMount(async () => {
 		await partners.load();
 		partner = partners.findByNames({ groupname, partnername });
 	});
 
-	let title = 'Business Online Billing';
-	mode.set('verify-contact');
-
 	const displayBill = (evt) => {
 		bill.set(evt.detail);
-		mode.set('bill');
+		mode = 'bill';
 	};
 
 	const confirmPayment = (evt) => {
-		mode.set('checkout');
+		mode = 'checkout';
 	};
 </script>
 
@@ -35,7 +36,7 @@
 	<title>Filipizen - {title}</title>
 </svelte:head>
 
-{#if $mode === 'verify-contact'}
+{#if mode === 'verify-contact'}
 	<Container>
 		<ContactVerification
 			{title}
@@ -43,13 +44,13 @@
 			on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
 			on:submit={(evt) => {
 				contact.set(evt.detail);
-				mode.set('initial');
+				mode = 'initial';
 			}}
 		/>
 	</Container>
 {/if}
 
-{#if $mode === 'initial'}
+{#if mode === 'initial'}
 	<Initial
 		{partner}
 		{title}
@@ -58,7 +59,7 @@
 	/>
 {/if}
 
-{#if $mode === 'bill'}
+{#if mode === 'bill'}
 	<Bill
 		{title}
 		{partner}
