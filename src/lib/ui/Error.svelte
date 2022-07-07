@@ -9,8 +9,11 @@
 <style>
 	div {
 		width: 100%;
-		padding: 5px 5px;
+		padding: 15px 0;
 		text-align: center;
 		background-color: beige;
+		color: rgb(194, 0, 0);
+		border-radius: 5px;
+		border: 1px solid rgb(230, 230, 205);
 	}
 </style>

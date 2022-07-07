@@ -34,7 +34,6 @@
 			qtr
 		};
 		const bill = await getData('/api/bpls/bill', params);
-		console.log('bill', bill);
 		processing = false;
 		dispatch('submit', bill);
 	};

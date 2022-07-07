@@ -10,11 +10,18 @@ const createStore = () => {
 	const { subscribe, set, update } = store;
 
 	const load = async () => {
-		if (loaded) return get(store);
-		const partners = await getData('/api/partner');
-		set(partners);
-		loaded = true;
-		return partners;
+		if (loaded) {
+			return { partners: get(store) };
+		}
+
+		const { error, data: partners } = await getData('/api/partner');
+
+		if (!error) {
+			set(partners);
+			loaded = true;
+			return { partners };
+		}
+		return { error };
 	};
 
 	const findByNames = ({ partnername, groupname }) => {

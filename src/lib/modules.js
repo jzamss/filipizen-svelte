@@ -140,9 +140,7 @@ export const getServiceComponent = ({ modulename, servicename }) => {
 	const partnerModules = JSON.parse(JSON.stringify(modules));
 	const module = partnerModules.find((module) => module.name === modulename);
 	if (!module) throw new Error(`Invalid module ${modulename}`);
-	console.log('module', module);
 	const service = module.services.find((service) => service.name === servicename);
 	if (!service) throw new Error(`Invalid service ${servicename}`);
-	console.log('service', service);
 	return service.component;
 };
