@@ -13,12 +13,16 @@
 	import PayOption from '$lib/components/PayOption.svelte';
 	import { getData } from '$lib/helpers/fetch.js';
 	import { currencyFormat } from '$lib/helpers/helper.js';
+	import { contact, payer } from '$lib/stores/bill.js';
 
 	const dispatch = createEventDispatcher();
 
 	export let title;
 	export let partner;
 	export let bill;
+
+	const ORIGIN = 'filipizen';
+	const txntype = 'bpls';
 
 	let errorRef = undefined;
 	let processing = false;
@@ -41,7 +45,18 @@
 	};
 
 	const confirmPayment = () => {
-		dispatch('submit');
+		dispatch('submit', {
+			refno,
+			txntype,
+			origin: ORIGIN,
+			orgcode: partner.id,
+			qtr: billedQtr,
+			info: { data: $bill, qtr: billedQtr },
+			paidby: $payer.paidby,
+			paidbyaddress: $payer.paidbyaddress,
+			amount: $bill.amount,
+			particulars: `Business Tax for Application No. ${$bill.appno}`
+		});
 	};
 
 	const recalcBill = async (evt) => {
@@ -50,9 +65,9 @@
 
 		const res = await getData('/api/bpls/bill', {
 			partnerid: partner.id,
-			txntype: 'bpls',
-			refno: refno,
-			qtr: evt.detail.billtoqtr
+			txntype,
+			refno,
+			qtr: billedQtr
 		});
 
 		error = res.error;

@@ -7,6 +7,7 @@
 
 	export let open = false;
 	export let title = '';
+	export let showActions = true;
 
 	const noHandler = () => {
 		dispatch('cancel');
@@ -20,8 +21,10 @@
 <Dialog bind:open aria-labelledby={title} scrimClickAction="" escapeKeyAction="">
 	<Title>{title}</Title>
 	<Content><slot /></Content>
-	<Actions>
-		<Button on:click={noHandler} label="No" />
-		<Button on:click={yesHandler} label="Yes" />
-	</Actions>
+	{#if showActions}
+		<Actions>
+			<Button on:click={noHandler} label="No" />
+			<Button on:click={yesHandler} label="Yes" />
+		</Actions>
+	{/if}
 </Dialog>

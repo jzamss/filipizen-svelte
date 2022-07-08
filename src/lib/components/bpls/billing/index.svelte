@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import bill, { contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
+	import bill, { order, contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
 	import partners from '$lib/stores/partners.js';
 
 	import ContactVerification from '$lib/components/contactverification/index.svelte';
@@ -32,8 +32,10 @@
 		mode = 'bill';
 	};
 
-	const checkoutPayment = () => {
-		mode = 'checkout';
+	const checkoutOrder = (evt) => {
+		order.set(evt.detail);
+		console.log('order', $order);
+		// mode = 'checkout';
 	};
 
 	const confirmCheckout = (evt) => {
@@ -82,7 +84,7 @@
 		{partner}
 		{bill}
 		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
-		on:submit={checkoutPayment}
+		on:submit={checkoutOrder}
 	/>
 {/if}
 
@@ -106,10 +108,5 @@
 {/if}
 
 {#if mode === 'payment'}
-	<OnlinePayment
-		{partner}
-		{bill}
-		on:cancel={() => mode === 'bill'}
-		on:select={selectPaymentPartner}
-	/>
+	<OnlinePayment {partner} on:cancel={() => mode === 'bill'} on:select={selectPaymentPartner} />
 {/if}

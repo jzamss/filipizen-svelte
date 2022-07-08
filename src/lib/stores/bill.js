@@ -3,6 +3,57 @@ import { writable } from 'svelte/store';
 //TODO: reset
 export const contact = writable({ email: 'jzamss@gmail.com' });
 
+export const order = writable({
+	refno: 'B0000120220500001-1C',
+	txntype: 'bpls',
+	origin: 'filipizen',
+	orgcode: '154',
+	qtr: 4,
+	info: {
+		data: {
+			ownername: 'SANTOS, MARICEL A.',
+			tradename: 'MY SARI-SARI STORE',
+			address: 'POBLACION I, CARCAR, \nCEBU',
+			refno: 'B0000120220500001-1C',
+			appno: 'B0000120220500001-1C',
+			bin: 'B0000120220500001',
+			appdate: '2021-01-05',
+			apptype: 'RENEW',
+			expirydate: null,
+			email: null,
+			mobileno: null,
+			amount: 3240,
+			items: [
+				{
+					lobname: 'SARI-SARI',
+					account: 'BUSINESS TAX',
+					amount: 2640,
+					discount: 0,
+					surcharge: 0,
+					interest: 0,
+					total: 2640
+				},
+				{
+					lobname: null,
+					account: 'GARBAGE FEE',
+					amount: 600,
+					discount: 0,
+					surcharge: 0,
+					interest: 0,
+					total: 600
+				}
+			],
+			txntype: 'bpls',
+			txntypename: 'Business Permit'
+		},
+		qtr: 4
+	},
+	paidby: 'juan',
+	paidbyaddress: 'cebu',
+	amount: 3240,
+	particulars: 'Business Tax for Application No. B0000120220500001-1C'
+});
+
 export const payer = writable({
 	paidby: 'juan',
 	paidbyaddress: 'cebu'
@@ -342,6 +393,7 @@ const createStore = () => {
 		ownername: 'SANTOS, MARICEL A.',
 		tradename: 'MY SARI-SARI STORE',
 		address: 'POBLACION I, CARCAR, \nCEBU',
+		refno: 'B0000120220500001-1C',
 		appno: 'B0000120220500001-1C',
 		bin: 'B0000120220500001',
 		appdate: '2021-01-05',
