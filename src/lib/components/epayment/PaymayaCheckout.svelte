@@ -31,7 +31,8 @@
 		dispatch('payment', {
 			type: payType,
 			webfee: webFee,
-			txnfee: txnFee
+			fee: txnFee,
+			total: total
 		});
 	};
 

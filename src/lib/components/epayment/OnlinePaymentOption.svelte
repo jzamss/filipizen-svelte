@@ -7,7 +7,7 @@
 	import Label from '$lib/ui/Label.svelte';
 	import Button from '$lib/ui/Button.svelte';
 	import ActionBar from '$lib/ui/ActionBar.svelte';
-	import { currencyFormat } from '$lib/helpers/helper.js';
+	import { numberFormat } from '$lib/helpers/helper.js';
 	import Panel from '../../ui/Panel.svelte';
 
 	const dispatch = createEventDispatcher();
@@ -43,21 +43,21 @@
 			</div>
 			<Spacer />
 			<Label
-				value={currencyFormat(amount)}
+				value={`PHP ${numberFormat(amount)}`}
 				label="Amount"
 				labelWidth={300}
 				spaceBetween
 				valueStyle="font-weight:bold; opacity:0.8;"
 			/>
 			<Label
-				value={currencyFormat(txnFee)}
+				value={`PHP ${numberFormat(txnFee)}`}
 				label="Payment Partner Service Fee"
 				labelWidth={300}
 				spaceBetween
 				valueStyle="font-weight:bold; opacity:0.8;"
 			/>
 			<Label
-				value={currencyFormat(total)}
+				value={`PHP ${numberFormat(total)}`}
 				label="Total"
 				labelWidth={300}
 				spaceBetween

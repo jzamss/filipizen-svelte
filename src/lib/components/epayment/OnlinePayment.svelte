@@ -35,7 +35,11 @@
 	const onPayment = async (evt) => {
 		processingPayment = true;
 		const checkout = evt.detail;
-		const po = { ...$order, webfee: checkout.webfee, txnfee: checkout.txnfee };
+		const po = {
+			...$order,
+			txnfee: checkout.fee,
+			webfee: checkout.webfee
+		};
 		po.orgcode = partner.id;
 		po.paidby = $payer.paidby;
 		po.paidbyaddress = $payer.paidbyaddress;
@@ -63,8 +67,7 @@
 
 <Panel>
 	<MsgBox open={showError} on:accept={() => (showError = false)} title="Payment Processing Error">
-		An error occurred while processing your request. Correct the problem and resubmit your request
-		or kindly contact the LGU for assistance
+		{error}
 	</MsgBox>
 
 	<Dialog open={processingPayment} showActions={false}>
@@ -83,7 +86,6 @@
 	<PaymayaCheckout on:payment={onPayment} />
 
 	{#if mode === 'payment' && paypartner.isredirect === true}
-		<h1>this is true</h1>
 		<form id="postform" bind:this={postForm} method="GET" action={paypartner.formaction}>
 			<input type="hidden" name="id" value={paypartner.id} />
 		</form>

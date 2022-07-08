@@ -1,4 +1,4 @@
-export const encodeParams = (param) => {
+export const encodeArgs = (param) => {
 	return Object.keys(param)
 		.reduce((arr, key) => {
 			if (param.hasOwnProperty(key)) {
@@ -12,7 +12,7 @@ export const encodeParams = (param) => {
 };
 
 export const getData = async (url, params = {}, options = {}) => {
-	const searchParams = encodeParams(params);
+	const searchParams = encodeArgs(params);
 
 	try {
 		const res = await fetch(searchParams ? `${url}?${searchParams}` : url, options);

@@ -4,11 +4,6 @@ export const post = async ({ request }) => {
 	const params = await request.json();
 	const { partner, po: newPo, payoption, checkout } = params;
 
-	console.log('partner', partner);
-	console.log('newpo', newPo);
-	console.log('payoption', payoption);
-	console.log('checkout', checkout);
-
 	//create po in partner lgu
 	const svc = Service.lookupAsync(`${partner.id}:EPaymentService`, 'epayment');
 	let po = await svc.invoke('createPaymentOrder', newPo);
