@@ -50,7 +50,7 @@
 <div>
 	<Container>
 		<Paper>
-			<Content style="display: flex; flex-direction: column;">
+			<Content style="display: flex; flex-direction: column; padding: 0 10px;">
 				<Title>{title}</Title>
 				<Subtitle>Initial Information</Subtitle>
 
@@ -62,6 +62,7 @@
 					fullWidth
 					required
 					validationMsg={error}
+					autoFocus={true}
 				/>
 				<ActionBar>
 					<Button on:click={onCancel} label="Cancel" />

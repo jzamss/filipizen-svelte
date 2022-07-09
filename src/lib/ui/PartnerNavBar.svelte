@@ -37,6 +37,7 @@
 		background-color: rgb(44, 62, 80);
 		display: flex;
 		align-items: center;
+		width: 100%;
 	}
 
 	h2 {

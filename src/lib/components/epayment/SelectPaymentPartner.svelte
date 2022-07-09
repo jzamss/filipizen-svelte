@@ -4,11 +4,10 @@
 	import { Image } from '@smui/image-list';
 	import Paper, { Content } from '@smui/paper';
 	import Checkbox from '$lib/ui/Checkbox.svelte';
-	import Button from '$lib/ui/Button.svelte';
 	import Label from '$lib/ui/Label.svelte';
 	import Spacer from '$lib/ui/Spacer.svelte';
 	import { numberFormat } from '$lib/helpers/helper.js';
-	import { contact, payer, payoptions } from '$lib/stores/bill.js';
+	import { payer, payoptions } from '$lib/stores/bill.js';
 
 	const dispatch = createEventDispatcher();
 

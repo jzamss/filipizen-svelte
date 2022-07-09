@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, afterUpdate } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import bill, { order, contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
@@ -19,6 +19,8 @@
 	let partner = {};
 
 	let mode = 'verify-contact';
+	let timeoutId = undefined;
+	let showOnlinePayment = false;
 
 	onMount(async () => {
 		await partners.load();
@@ -43,8 +45,11 @@
 
 	const selectPaymentPartner = (evt) => {
 		$payoption = evt.detail;
-		console.log('payoption', $payoption);
 		mode = 'payment';
+		timeoutId = setTimeout(() => {
+			showOnlinePayment = true;
+			clearTimeout(timeoutId);
+		}, 600);
 	};
 </script>
 
@@ -104,6 +109,13 @@
 	/>
 {/if}
 
-{#if mode === 'payment'}
-	<OnlinePayment {partner} on:cancel={() => mode === 'bill'} on:select={selectPaymentPartner} />
+{#if mode === 'payment' && showOnlinePayment}
+	<OnlinePayment
+		{partner}
+		on:cancel={() => {
+			mode = 'payoptions';
+			showOnlinePayment = false;
+		}}
+		on:select={selectPaymentPartner}
+	/>
 {/if}

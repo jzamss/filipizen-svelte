@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { createEventDispatcher } from 'svelte';
 	import Paper, { Content } from '@smui/paper';
 	import Button from '$lib/ui/Button.svelte';
@@ -19,6 +20,13 @@
 
 	let processing = false;
 	let error = false;
+	let visible = false;
+
+	$: if (visible) requestAnimationFrame(() => window.scrollTo(0, 100));
+
+	onMount(() => {
+		visible = true;
+	});
 
 	let payer = {
 		paidby: '',

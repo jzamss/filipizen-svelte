@@ -1,4 +1,5 @@
 <script>
+	import { createEventDispatcher, onMount } from 'svelte';
 	import PaymayaCheckout from './PaymayaCheckout.svelte';
 	import Panel from '$lib/ui/Panel.svelte';
 	import MsgBox from '$lib/ui/MsgBox.svelte';
@@ -8,6 +9,8 @@
 	import { postData } from '$lib/helpers/fetch.js';
 	import { order, contact, payer, payoption } from '$lib/stores/bill.js';
 
+	const dispatch = createEventDispatcher();
+
 	export let partner;
 
 	let mode = 'checkout';
@@ -16,6 +19,13 @@
 	let processingPayment = false;
 	let paypartner = {};
 	let po = {};
+	let visible = false;
+
+	onMount(() => {
+		visible = true;
+	});
+
+	$: if (visible) requestAnimationFrame(() => window.scrollTo(0, 5));
 
 	let postForm = undefined;
 
@@ -31,6 +41,10 @@
 	$: if (postForm && paypartner.formaction) {
 		postForm.submit();
 	}
+
+	const cancelPayment = () => {
+		dispatch('cancel');
+	};
 
 	const onPayment = async (evt) => {
 		processingPayment = true;
@@ -82,7 +96,7 @@
 		</Panel>
 	</Dialog>
 
-	<PaymayaCheckout on:payment={onPayment} />
+	<PaymayaCheckout on:cancel={cancelPayment} on:payment={onPayment} />
 
 	{#if mode === 'payment' && paypartner.isredirect === true}
 		<form id="postform" bind:this={postForm} method="GET" action={paypartner.formaction}>
