@@ -4,7 +4,7 @@
 	export let style = '';
 </script>
 
-<div class:column class="center" {style}><slot /></div>
+<div class:column class:center {style}><slot /></div>
 
 <style>
 	.center {

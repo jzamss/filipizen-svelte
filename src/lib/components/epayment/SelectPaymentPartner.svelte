@@ -28,7 +28,7 @@
 	<div class="order-container">
 		<Paper>
 			<Content style="display: flex; flex-direction: column; padding: 0 10px;">
-				<label>Your Order</label>
+				<div class="order-title">Your Order</div>
 				<Label bind:value={partner.title} label="Agency" />
 				<Label bind:value={particulars} label="Particulars" />
 				<Label bind:value={$payer.paidby} label="Paid By" />
@@ -72,7 +72,7 @@
 		margin-top: 5px;
 	}
 
-	label {
+	.order-title {
 		font-size: 1.425rem;
 		font-weight: 800;
 		text-align: center;
