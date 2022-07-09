@@ -54,7 +54,6 @@
 		});
 
 		error = res.error;
-		processingPayment = false;
 
 		if (error) {
 			showError = true;

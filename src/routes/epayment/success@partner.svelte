@@ -50,7 +50,7 @@
 				</div>
 
 				<div>
-					<Button href={`/partners/${groupname}_${partnername}`} label="Return" variant="raised" />
+					<Button href={`/partners/${groupname}_${partnername}`} label="OK" variant="raised" />
 				</div>
 			</Content>
 		</Paper>

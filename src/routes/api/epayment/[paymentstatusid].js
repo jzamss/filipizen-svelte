@@ -13,7 +13,11 @@ export const get = async ({ params, request, url }) => {
 
 	if (/error/i.test(statusid)) {
 		try {
+			const po = await getPaymentOrder({ objid: data.paymentrefid });
+			const org = await getPartnerOrg({ orgcode: po.orgcode });
 			const error = await postPartnerPaymentError(data);
+			error.partnername = org?.name;
+			error.groupname = org?.group?.name;
 			const errorArgs = encodeArgs(error);
 			return Response.redirect(`${url.origin}/epayment/error?${errorArgs}`);
 		} catch (err) {
@@ -52,9 +56,14 @@ const postPartnerPayment = async (params) => {
 	return pmt;
 };
 
-const getPartnerOrg = async (pmt) => {
+const getPartnerOrg = async (org) => {
 	const svc = Service.lookupAsync('CloudPartnerService', 'partner');
-	return await svc.invoke('findById', { id: pmt.orgcode });
+	return await svc.invoke('findById', { id: org.orgcode });
+};
+
+const getPaymentOrder = async (po) => {
+	const svc = Service.lookupAsync('CloudPaymentService', 'epayment');
+	return await svc.invoke('getPaymentOrder', { objid: po.objid });
 };
 
 const postPartnerPaymentError = async (params) => {
