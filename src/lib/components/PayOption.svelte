@@ -44,11 +44,11 @@
 <Dialog bind:open aria-labelledby="Payment Option" escapeKeyAction="" scrimClickAction="">
 	<Title>Payment Option</Title>
 	<div class="container">
-		<label class="msg">{msg}</label>
+		<div class="msg">{msg}</div>
 		<div class="option-container">
 			{#if years.length > 0}
 				<div class="row">
-					<label class="row-label"> Year to Bill: </label>
+					<div class="row-label">Year to Bill:</div>
 					<select bind:value={billtoyear}>
 						{#each years as year}
 							<option value={year}>{year}</option>
@@ -57,7 +57,7 @@
 				</div>
 			{/if}
 			<div class="row">
-				<label class="row-label"> Quarter to Bill: </label>
+				<div class="row-label">Quarter to Bill:</div>
 				<select bind:value={billtoqtr}>
 					{#each qtrs as qtr}
 						<option value={qtr}>{qtr}</option>
