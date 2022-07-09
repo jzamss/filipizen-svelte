@@ -116,6 +116,5 @@
 			mode = 'payoptions';
 			showOnlinePayment = false;
 		}}
-		on:select={selectPaymentPartner}
 	/>
 {/if}

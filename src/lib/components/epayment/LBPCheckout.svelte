@@ -2,14 +2,16 @@
 	import { createEventDispatcher } from 'svelte';
 	import bill from '$lib/stores/bill.js';
 	import OnlinePaymentOption from './OnlinePaymentOption.svelte';
+	import { getWebFee } from '$lib/helpers/epayment.js';
+	import { payoption } from '$lib/stores/bill.js';
 
 	const dispatch = createEventDispatcher();
 
-	const GCASH_FEE = 10.0;
-	const RAMESES_FEE = 20.0;
+	const LBP_FEE = 0.0;
+	const RAMESES_FEE = getWebFee($bill.amount, $payoption.webfee);
 
 	let payType = 'wallet';
-	let txnFee = GCASH_FEE + RAMESES_FEE;
+	let txnFee = LBP_FEE + RAMESES_FEE;
 	let webFee = RAMESES_FEE;
 
 	$: total = $bill.amount + txnFee;
@@ -27,14 +29,14 @@
 		});
 	};
 
-	const payTypes = [{ type: 'wallet', caption: 'Wallet' }];
+	const payTypes = [{ type: 'wallet', caption: 'Credit/Debit Card' }];
 </script>
 
 <OnlinePaymentOption
 	bind:value={payType}
 	on:cancel={onCancel}
 	on:payment={onPayment}
-	imageSrc="/assets/gcash.png"
+	imageSrc="/assets/lbp.png"
 	amount={$bill.amount}
 	{payTypes}
 	{txnFee}
