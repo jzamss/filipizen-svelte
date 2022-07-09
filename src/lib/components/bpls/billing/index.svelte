@@ -18,9 +18,7 @@
 	let title = 'Business Online Billing';
 	let partner = {};
 
-	//TODO: reset
-	// let mode = 'verify-contact';
-	let mode = 'payment';
+	let mode = 'verify-contact';
 
 	onMount(async () => {
 		await partners.load();
@@ -34,8 +32,7 @@
 
 	const checkoutOrder = (evt) => {
 		order.set(evt.detail);
-		console.log('order', $order);
-		// mode = 'checkout';
+		mode = 'checkout';
 	};
 
 	const confirmCheckout = (evt) => {
