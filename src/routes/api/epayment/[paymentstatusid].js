@@ -69,7 +69,7 @@ const postPartnerPaymentError = async (params) => {
 const buildArgs = (pmt, org) => {
 	const data = {
 		orgcode: pmt.orgcode,
-		orgname: org?.name,
+		partnername: org?.name,
 		groupname: org?.group?.name,
 		txnno: pmt.paymentrefid,
 		txndate: pmt.txndate,

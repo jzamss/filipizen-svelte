@@ -1,1 +1,0 @@
-<h1>Success Payment</h1>

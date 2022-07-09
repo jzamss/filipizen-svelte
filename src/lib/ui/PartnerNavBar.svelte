@@ -3,7 +3,17 @@
 	import { page } from '$app/stores';
 	import partners from '$lib/stores/partners.js';
 
-	const { partnername, groupname } = $page.params;
+	let partnername = '';
+	let groupname = '';
+
+	if ($page.params.partnername) {
+		partnername = $page.params.partnername;
+		groupname = $page.params.groupname;
+	} else {
+		partnername = $page.url.searchParams.get('partnername');
+		groupname = $page.url.searchParams.get('groupname');
+	}
+
 	let partner = {};
 
 	onMount(async () => {
