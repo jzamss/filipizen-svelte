@@ -17,6 +17,7 @@
 		"@smui/checkbox": "^6.0.0-beta.16",
 		"@smui/circular-progress": "^6.0.0-beta.16",
 		"@smui/data-table": "^6.0.0-beta.16",
+		"@smui/dialog": "^6.0.0-beta.16",
 		"@smui/form-field": "^6.0.0-beta.16",
 		"@smui/image-list": "^6.0.0-beta.16",
 		"@smui/linear-progress": "^6.0.0-beta.16",
