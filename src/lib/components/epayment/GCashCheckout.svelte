@@ -34,7 +34,7 @@
 	bind:value={payType}
 	on:cancel={onCancel}
 	on:payment={onPayment}
-	imageSrc="/assets/gcash.png"
+	imageSrc="/public/assets/gcash.png"
 	amount={$bill.amount}
 	{payTypes}
 	{txnFee}

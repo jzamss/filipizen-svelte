@@ -1,6 +1,6 @@
 <nav class="bg-rsi-1">
 	<div>
-		<img width="80" src="/assets/filipizen.svg" alt="Filipizen Icon" />
+		<img width="80" src="/public/assets/filipizen.svg" alt="Filipizen Icon" />
 	</div>
 </nav>
 

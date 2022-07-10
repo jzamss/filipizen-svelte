@@ -1,4 +1,5 @@
 import Service from '$lib/helpers/remote-service.js';
+import { cloudProxyServerHost } from '$lib/settings.js';
 import { encodeArgs } from '$lib/helpers/fetch.js';
 
 const errorMsg =
@@ -10,6 +11,8 @@ export const get = async ({ params, request, url }) => {
 
 	const statusid = params.paymentstatusid;
 	const data = { statusid, ...body, ...query };
+	let errorUrl = null;
+	let successUrl = null;
 
 	if (/error/i.test(statusid)) {
 		try {
@@ -19,20 +22,34 @@ export const get = async ({ params, request, url }) => {
 			error.partnername = org?.name;
 			error.groupname = org?.group?.name;
 			const errorArgs = encodeArgs(error);
-			return Response.redirect(`${url.origin}/epayment/error?${errorArgs}`);
+			errorUrl = `${cloudProxyServerHost}/view/epayment/error?${errorArgs}`;
+			console.log('ErrorUrl', errorUrl);
+			return Response.redirect(errorUrl);
 		} catch (err) {
-			console.log('payoptions [ERROR]', err);
-			return Response.redirect(`${url.origin}/epayment/error?message=${errorMsg}`);
+			errorUrl = `${cloudProxyServerHost}/view/epayment/error?message=${errorMsg}`;
+			console.log('ErrorUrl', errorUrl);
+			console.log('epayment [ERROR]', err);
+			return Response.redirect(errorUrl);
 		}
 	} else {
 		try {
 			const pmt = await postPartnerPayment(data);
 			const partnerOrg = await getPartnerOrg(pmt);
+			console.log('partnerOrg=================================');
+			console.log('partnerOrg', partnerOrg);
+			console.log('partnerOrg=================================');
 			const args = buildArgs(pmt, partnerOrg);
-			return Response.redirect(`${url.origin}/epayment/success?${args}`);
+			console.log('args=================================');
+			console.log('args', args);
+			console.log('args=================================');
+			successUrl = `${cloudProxyServerHost}/view/epayment/success?${args}`;
+			console.log('successUrl', successUrl);
+			return Response.redirect(successUrl);
 		} catch (err) {
-			console.log('payoptions [ERROR]', err);
-			return Response.redirect(`${url.origin}/epayment/error?message=${errorMsg}`);
+			errorUrl = `${cloudProxyServerHost}/view/epayment/error?message=${errorMsg}`;
+			console.log('errorUrl', errorUrl);
+			console.log('epayment [ERROR]', err);
+			return Response.redirect(errorUrl);
 		}
 	}
 };
@@ -57,6 +74,9 @@ const postPartnerPayment = async (params) => {
 };
 
 const getPartnerOrg = async (org) => {
+	console.log('getPartnerOrg============================');
+	console.log('orgcode', org.orgcode);
+	console.log('getPartnerOrg============================');
 	const svc = Service.lookupAsync('CloudPartnerService', 'partner');
 	return await svc.invoke('findById', { id: org.orgcode });
 };

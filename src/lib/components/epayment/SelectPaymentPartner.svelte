@@ -46,7 +46,7 @@
 			{#each $payoptions as payoption (payoption.objid)}
 				<button on:click={() => onSelectPayOption(payoption)}>
 					<Image
-						src={`/assets/${payoption.paypartnerid.toLowerCase()}.png`}
+						src={`/public/assets/${payoption.paypartnerid.toLowerCase()}.png`}
 						alt={payoption.paypartner.name}
 					/>
 				</button>
