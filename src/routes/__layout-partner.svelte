@@ -1,11 +1,11 @@
 <script>
-	import FilipizenLayout from '$lib/ui/FilipizenLayout.svelte';
+	import PartnerLayout from '$lib/ui/PartnerLayout.svelte';
 	import PartnerNavBar from '$lib/ui/PartnerNavBar.svelte';
 </script>
 
-<FilipizenLayout>
+<PartnerLayout>
 	<div slot="header">
 		<PartnerNavBar />
 	</div>
 	<slot />
-</FilipizenLayout>
+</PartnerLayout>
