@@ -19,20 +19,20 @@ export const get = async ({ params, request, url }) => {
 			error.partnername = org?.name;
 			error.groupname = org?.group?.name;
 			const errorArgs = encodeArgs(error);
-			return Response.redirect(`${url.origin}/epayment/error?${errorArgs}`);
+			return Response.redirect(`${url.origin}/view/epayment/error?${errorArgs}`);
 		} catch (err) {
 			console.log('payoptions [ERROR]', err);
-			return Response.redirect(`${url.origin}/epayment/error?message=${errorMsg}`);
+			return Response.redirect(`${url.origin}/view/epayment/error?message=${errorMsg}`);
 		}
 	} else {
 		try {
 			const pmt = await postPartnerPayment(data);
 			const partnerOrg = await getPartnerOrg(pmt);
 			const args = buildArgs(pmt, partnerOrg);
-			return Response.redirect(`${url.origin}/epayment/success?${args}`);
+			return Response.redirect(`${url.origin}/view/epayment/success?${args}`);
 		} catch (err) {
 			console.log('payoptions [ERROR]', err);
-			return Response.redirect(`${url.origin}/epayment/error?message=${errorMsg}`);
+			return Response.redirect(`${url.origin}/view/epayment/error?message=${errorMsg}`);
 		}
 	}
 };
