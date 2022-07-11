@@ -46,7 +46,7 @@
 	bind:value={payType}
 	on:cancel={onCancel}
 	on:payment={onPayment}
-	imageSrc="/public/assets/paymaya.png"
+	imageSrc="/filipizen/assets/paymaya.png"
 	amount={$bill.amount}
 	{payTypes}
 	{txnFee}

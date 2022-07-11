@@ -1,5 +1,5 @@
 <script>
-	export let value;
+	export let value = '';
 	export let label = '';
 	export let labelWidth = 160;
 	export let visibleWhen = true;

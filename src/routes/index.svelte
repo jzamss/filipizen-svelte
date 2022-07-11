@@ -8,7 +8,7 @@
 
 <div class="container">
 	<div>
-		<img src="/public/assets/filipizen.svg" alt="Filipizen" width="220" />
+		<img src="/filipizen/assets/filipizen.svg" alt="Filipizen" width="220" />
 		<h1>Experience ease of doing business with the government</h1>
 		<p>Over 50 local government units participating all over the Philippines</p>
 	</div>

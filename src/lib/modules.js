@@ -42,7 +42,7 @@ const modules = [
 		title: 'Waterworks',
 		services: [
 			{
-				name: 'waterworksbilling',
+				name: 'billing',
 				title: 'Waterworks Billing',
 				component: 'WaterworksBillingWebController',
 				permission: 'waterworks.billing'

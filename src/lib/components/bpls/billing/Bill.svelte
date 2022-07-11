@@ -122,12 +122,7 @@
 						{ label: 'Bill Amount :', colspan: 4, type: 'numeric', style: 'font-weight: bold;' },
 						{ label: currencyFormat($bill.amount), type: 'numeric' }
 					]}
-				>
-					<div slot="total">
-						<Cell colspan={4} style="text-align: right; font-weight: bold;">TOTAL:</Cell>
-						<Cell>1000</Cell>
-					</div>
-				</Table>
+				/>
 
 				<ActionBar>
 					<Button on:click={onCancel} label="Cancel" />

@@ -1,12 +1,19 @@
 <script>
 	export let column = undefined;
 	export let center = undefined;
+	export let row = undefined;
 	export let style = '';
 </script>
 
-<div class:column class:center {style}><slot /></div>
+<div class:row class:column class:center {style}><slot /></div>
 
 <style>
+	.row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
 	.center {
 		display: flex;
 		justify-content: center;

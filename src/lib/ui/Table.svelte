@@ -24,7 +24,10 @@
 </script>
 
 <div class="container">
-	<DataTable table$aria-label={title} style="max-width: 100%;">
+	{#if title}
+		<h2>{title}</h2>
+	{/if}
+	<DataTable table$aria-label={title} style="width: 100%;">
 		<Head>
 			<Row>
 				{#each columns as column (column.label)}
@@ -54,3 +57,14 @@
 		</Body>
 	</DataTable>
 </div>
+
+<style>
+	.container {
+		width: 100%;
+	}
+
+	h2 {
+		font-weight: 700;
+		margin-bottom: 5px;
+	}
+</style>
