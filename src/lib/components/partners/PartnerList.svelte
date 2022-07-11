@@ -71,8 +71,10 @@
 		width: 300px;
 		margin-right: 20px;
 	}
+
 	h1 {
 		padding: 0px 10px;
+		font-size: 1.5rem;
 	}
 
 	h2 {
@@ -94,7 +96,7 @@
 		font-weight: 600;
 	}
 
-	@media (min-width: 480px) {
+	@media (min-width: 600px) {
 		.container {
 			display: flex;
 			flex-direction: column;
@@ -113,13 +115,13 @@
 			flex-direction: column;
 			flex-wrap: wrap;
 			max-height: 220vh;
-			padding: 0px 40px;
+			padding: 0px 100px;
 		}
 		.cluster {
 			width: 250px;
 		}
 		h1 {
-			padding: 0px 40px;
+			padding: 0px 100px;
 		}
 	}
 </style>

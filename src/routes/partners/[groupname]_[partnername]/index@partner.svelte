@@ -34,16 +34,9 @@
 </div>
 
 <style>
-	.container {
-		padding: 0px 10px;
-	}
-
 	.cluster {
 		width: 300px;
 		margin-right: 20px;
-	}
-	h1 {
-		padding: 0px 10px;
 	}
 
 	h2 {
@@ -71,10 +64,10 @@
 			flex-direction: column;
 			flex-wrap: wrap;
 			max-height: 350vh;
-			padding: 0px 40px;
+			padding: 0px 80px;
 		}
 		h1 {
-			padding: 0px 40px;
+			padding: 0px 80px;
 		}
 	}
 
@@ -83,14 +76,14 @@
 			display: flex;
 			flex-direction: column;
 			flex-wrap: wrap;
-			max-height: 90vh;
-			padding: 0px 40px;
+			max-height: 100vh;
+			padding: 0px 200px;
 		}
 		.cluster {
 			width: 250px;
 		}
 		h1 {
-			padding: 0px 40px;
+			padding: 0px 200px;
 		}
 	}
 </style>

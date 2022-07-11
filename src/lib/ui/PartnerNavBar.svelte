@@ -33,11 +33,10 @@
 
 <style>
 	.container {
-		padding: 5px 20px;
 		background-color: rgb(44, 62, 80);
 		display: flex;
 		align-items: center;
-		width: 100%;
+		padding: 5px 20px;
 	}
 
 	h2 {
@@ -49,13 +48,8 @@
 
 	@media (min-width: 480px) {
 		.container {
-			padding: 5px 40px;
-		}
-	}
-
-	@media (min-width: 980px) {
-		.container {
-			padding: 5px 100px;
+			padding: 5px 60px;
+			padding-left: 100px;
 		}
 	}
 </style>

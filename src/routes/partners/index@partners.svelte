@@ -8,7 +8,7 @@
 	<title>Filipizen - Partners</title>
 </svelte:head>
 
-<div class="container">
+<div>
 	{#await partners.load()}
 		<LinearProgress indeterminate />
 	{:then data}

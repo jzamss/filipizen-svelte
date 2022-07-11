@@ -5,24 +5,7 @@
 </nav>
 
 <style>
-	nav {
-		padding-left: 20px;
-		width: 100%;
-	}
-
 	div {
-		padding: 5px 0px;
-	}
-
-	@media (min-width: 480px) {
-		div {
-			padding-left: 40px;
-		}
-	}
-
-	@media (min-width: 980px) {
-		div {
-			padding-left: 100px;
-		}
+		padding: 5px 20px;
 	}
 </style>
