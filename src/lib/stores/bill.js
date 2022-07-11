@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 
+export const txntype = writable();
+
 export const contact = writable({});
 
 export const order = writable({});
@@ -16,6 +18,7 @@ let billStore;
 
 const createStore = () => {
 	billStore = writable({});
+
 	const { subscribe, set, update } = billStore;
 
 	return {

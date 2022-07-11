@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { Image } from '@smui/image-list';
@@ -15,9 +16,15 @@
 	export let bill;
 
 	let agreed = false;
+	let visible = false;
 
 	$: amount = `PHP ${numberFormat($bill.amount)}`;
 	$: particulars = $bill.particulars || `${$bill.txntypename} Payment`;
+	$: if (visible) requestAnimationFrame(() => window.scrollTo(0, 0));
+
+	onMount(() => {
+		visible = true;
+	});
 
 	const onSelectPayOption = (payoption) => {
 		dispatch('select', payoption);

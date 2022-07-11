@@ -29,7 +29,7 @@
 		visible = true;
 	});
 
-	$: if (visible) requestAnimationFrame(() => window.scrollTo(0, 5));
+	$: if (visible) requestAnimationFrame(() => window.scrollTo(0, 0));
 
 	const components = {
 		paymaya: PaymayaCheckout,

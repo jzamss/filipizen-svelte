@@ -9,12 +9,12 @@ const modules = [
 				permission: 'bpls.billing'
 			},
 			{
-				name: 'renewbusiness',
+				name: 'renew',
 				title: 'Renew Business Application',
 				permission: 'bpls.renewal'
 			},
 			{
-				name: 'newbusiness',
+				name: 'new',
 				title: 'New Business Application',
 				permission: 'bpls.new'
 			}
@@ -25,12 +25,12 @@ const modules = [
 		title: 'Real Property',
 		services: [
 			{
-				name: 'rptbilling',
+				name: 'billing',
 				title: 'Realty Tax Online Billing',
 				permission: 'rptis.billing'
 			},
 			{
-				name: 'rpttaxclearance',
+				name: 'taxclearance',
 				title: 'Online Realty Tax Clearance',
 				permission: 'rptis.taxclearance'
 			}

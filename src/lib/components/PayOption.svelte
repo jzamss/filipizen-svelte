@@ -13,15 +13,13 @@
 	export let fromQtr = 1;
 	export let fromYear = cy;
 	export let toYear = cy;
-	export let billtoyear = toYear;
+	export let billtoyear = cy;
 	export let billtoqtr = 4;
 
 	let years = [];
 	let qtrs = [1, 2, 3, 4];
 
-	$: if (fromYear !== toYear) {
-		years = range(fromYear, toYear);
-	}
+	$: years = range(fromYear, toYear);
 
 	$: if (billtoyear === fromYear) {
 		qtrs = range(fromQtr, 4);
