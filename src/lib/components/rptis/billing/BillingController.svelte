@@ -20,7 +20,7 @@
 	let mode = 'verify-contact';
 	let timeoutId = undefined;
 	let showOnlinePayment = false;
-	txntype.set('rpt');
+	txntype.set('rptcol');
 
 	onMount(async () => {
 		await partners.load();

@@ -18,7 +18,7 @@
 		border-bottom: 1px solid #aaaaaa;
 		font-family: 'Robot', 'Helvetica', 'Arial', sans-serif;
 		margin-bottom: 10px;
-		height: 2.85rem;
+		min-height: 2.85rem;
 		width: 100%;
 	}
 

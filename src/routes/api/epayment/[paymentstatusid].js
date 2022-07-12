@@ -61,14 +61,11 @@ const postPartnerPayment = async (params) => {
 	console.log('pmt', pmt);
 	console.log('postPartnerPayment.postPartnerPayment===========================');
 
-	console.log('post remote payment >>>>>');
 	const remoteSvc = Service.lookup(`${pmt.orgcode}:EPaymentService`, 'epayment');
 	remoteSvc
 		.invoke('postPayment', pmt)
 		.then(() => console.log(`EPayment posted to partner ${pmt.orgcode}`))
 		.catch((err) => console.log('postPartnerPayment [Error]: Ignore, ', err));
-
-	console.log('post remote payment >>>>> done');
 
 	return pmt;
 };

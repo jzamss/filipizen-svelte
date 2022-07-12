@@ -3,9 +3,9 @@ import { groupBy } from '$lib/helpers/helper.js';
 import { getData } from '$lib/helpers/fetch.js';
 
 let store;
+let loaded = false;
 
 const createStore = () => {
-	let loaded = false;
 	store = writable();
 	const { subscribe, set, update } = store;
 

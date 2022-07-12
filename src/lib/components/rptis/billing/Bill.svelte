@@ -5,7 +5,8 @@
 	import Container from '$lib/ui/Container.svelte';
 	import Title from '$lib/ui/Title.svelte';
 	import Subtitle from '$lib/ui/Subtitle.svelte';
-	import Label from '$lib/ui/Label.svelte';
+	import Panel from '$lib/ui/Panel.svelte';
+	import Text from '$lib/ui/Text.svelte';
 	import Error from '$lib/ui/Error.svelte';
 	import ActionBar from '$lib/ui/ActionBar.svelte';
 	import PayOption from '$lib/components/PayOption.svelte';
@@ -78,20 +79,24 @@
 <div>
 	<Container>
 		<Paper>
-			<Content style="display: flex; flex-direction: column; padding: 0 10px;">
+			<Content style="display: flex; flex-direction: column; margin: 0px 10px; width: 350px;">
 				<Title>{title}</Title>
 				<Subtitle>Billing Information</Subtitle>
 				<Error bind:this={errorRef} {error} />
-				<Label bind:value={$bill.billno} label="Bill No." />
-				<Label bind:value={$bill.billdate} label="Bill Date" />
-				<Label bind:value={$bill.tdno} label="TD No." />
-				<Label bind:value={$bill.fullpin} label="PIN" />
+				<Panel row>
+					<Text bind:value={$bill.billno} label="Bill No." />
+					<Text bind:value={$bill.billdate} label="Bill Date" />
+				</Panel>
+				<Panel row>
+					<Text bind:value={$bill.tdno} label="TD No." />
+					<Text bind:value={$bill.fullpin} label="PIN" />
+				</Panel>
 				{#if showOwnerInfo}
-					<Label bind:value={$bill.taxpayer.name} label="Property Owner" />
-					<Label bind:value={$bill.taxpayer.address} label="Address" />
+					<Text bind:value={$bill.taxpayer.name} label="Property Owner" />
+					<Text bind:value={$bill.taxpayer.address} label="Address" />
 				{/if}
-				<Label bind:value={$bill.billperiod} label="Billing Period" />
-				<Label bind:value={billamount} label="Amount Due" />
+				<Text bind:value={$bill.billperiod} label="Billing Period" />
+				<Text bind:value={billamount} label="Amount Due" />
 				<div style="margin-top: 10px;">
 					<Button
 						on:click={() => (showPayOption = true)}
