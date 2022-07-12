@@ -8,7 +8,7 @@
 	import Label from '$lib/ui/Label.svelte';
 	import Spacer from '$lib/ui/Spacer.svelte';
 	import { numberFormat } from '$lib/helpers/helper.js';
-	import { payer, payoptions } from '$lib/stores/bill.js';
+	import { order, payer, payoptions } from '$lib/stores/bill.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -19,7 +19,7 @@
 	let visible = false;
 
 	$: amount = `PHP ${numberFormat($bill.amount)}`;
-	$: particulars = $bill.particulars || `${$bill.txntypename} Payment`;
+	$: particulars = $order.particulars || `${$bill.txntypename} Payment`;
 	$: if (visible) requestAnimationFrame(() => window.scrollTo(0, 0));
 
 	onMount(() => {

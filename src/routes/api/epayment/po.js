@@ -5,11 +5,11 @@ export const post = async ({ request }) => {
 	const { partner, po: newPo, payoption, checkout } = params;
 
 	//create po in partner lgu
-	const svc = Service.lookupAsync(`${partner.id}:EPaymentService`, 'epayment');
+	const svc = Service.lookup(`${partner.id}:EPaymentService`, 'epayment');
 	let po = await svc.invoke('createPaymentOrder', newPo);
 
 	//get po from cloud
-	const pmtSvc = Service.lookupAsync('CloudPaymentService', 'epayment');
+	const pmtSvc = Service.lookup('CloudPaymentService', 'epayment');
 	po = await pmtSvc.invoke('getPaymentOrder', { objid: po.objid });
 
 	//get paypartner info

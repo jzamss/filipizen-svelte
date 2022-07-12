@@ -1,5 +1,5 @@
 import Service from '$lib/helpers/remote-service.js';
-import { cloudProxyServerHost } from '$lib/settings.js';
+import connections from '$lib/connections.js';
 import { encodeArgs } from '$lib/helpers/fetch.js';
 
 const errorMsg =
@@ -22,11 +22,11 @@ export const get = async ({ params, request, url }) => {
 			error.partnername = org?.name;
 			error.groupname = org?.group?.name;
 			const errorArgs = encodeArgs(error);
-			errorUrl = `${cloudProxyServerHost}/view/epayment/error?${errorArgs}`;
+			errorUrl = `${connections.cloudProxyServerHost}/view/epayment/error?${errorArgs}`;
 			console.log('ErrorUrl', errorUrl);
 			return Response.redirect(errorUrl);
 		} catch (err) {
-			errorUrl = `${cloudProxyServerHost}/view/epayment/error?message=${errorMsg}`;
+			errorUrl = `${connections.cloudProxyServerHost}/view/epayment/error?message=${errorMsg}`;
 			console.log('ErrorUrl', errorUrl);
 			console.log('epayment [ERROR]', err);
 			return Response.redirect(errorUrl);
@@ -42,11 +42,11 @@ export const get = async ({ params, request, url }) => {
 			console.log('args=================================');
 			console.log('args', args);
 			console.log('args=================================');
-			successUrl = `${cloudProxyServerHost}/view/epayment/success?${args}`;
+			successUrl = `${connections.cloudProxyServerHost}/view/epayment/success?${args}`;
 			console.log('successUrl', successUrl);
 			return Response.redirect(successUrl);
 		} catch (err) {
-			errorUrl = `${cloudProxyServerHost}/view/epayment/error?message=${errorMsg}`;
+			errorUrl = `${connections.cloudProxyServerHost}/view/epayment/error?message=${errorMsg}`;
 			console.log('errorUrl', errorUrl);
 			console.log('epayment [ERROR]', err);
 			return Response.redirect(errorUrl);
@@ -55,43 +55,37 @@ export const get = async ({ params, request, url }) => {
 };
 
 const postPartnerPayment = async (params) => {
-	const svc = Service.lookupAsync('CloudPaymentService', 'epayment');
+	const svc = Service.lookup('CloudPaymentService', 'epayment');
 	const pmt = await svc.invoke('postPartnerPayment', params);
 	console.log('postPartnerPayment.postPartnerPayment===========================');
 	console.log('pmt', pmt);
 	console.log('postPartnerPayment.postPartnerPayment===========================');
 
-	const remoteSvc = Service.lookupAsync(`${pmt.orgcode}:EPaymentService`, 'epayment');
+	console.log('post remote payment >>>>>');
+	const remoteSvc = Service.lookup(`${pmt.orgcode}:EPaymentService`, 'epayment');
 	remoteSvc
 		.invoke('postPayment', pmt)
-		.then(() => {
-			console.log(`EPayment posted to partner ${pmt.orgcode}`);
-		})
-		.catch((err) => {
-			console.log('postPartnerPayment [Error]: Ignore, ', err);
-		});
+		.then(() => console.log(`EPayment posted to partner ${pmt.orgcode}`))
+		.catch((err) => console.log('postPartnerPayment [Error]: Ignore, ', err));
+
+	console.log('post remote payment >>>>> done');
+
 	return pmt;
 };
 
 const getPartnerOrg = async (org) => {
-	console.log('getPartnerOrg============================');
-	console.log('orgcode', org.orgcode);
-	console.log('getPartnerOrg============================');
-	const svc = Service.lookupAsync('CloudPartnerService', 'partner');
+	const svc = Service.lookup('CloudPartnerService', 'partner');
 	return await svc.invoke('findById', { id: org.orgcode });
 };
 
 const getPaymentOrder = async (po) => {
-	const svc = Service.lookupAsync('CloudPaymentService', 'epayment');
+	const svc = Service.lookup('CloudPaymentService', 'epayment');
 	return await svc.invoke('getPaymentOrder', { objid: po.objid });
 };
 
 const postPartnerPaymentError = async (params) => {
-	const svc = Service.lookupAsync('CloudPaymentService', 'epayment');
+	const svc = Service.lookup('CloudPaymentService', 'epayment');
 	const error = await svc.invoke('postPartnerPaymentError', params);
-	console.log('postPartnerPayment.postPartnerPaymentError===========================');
-	console.log(error);
-	console.log('postPartnerPayment.postPartnerPaymentError===========================');
 	return error;
 };
 

@@ -5,10 +5,9 @@ export const get = async ({ url }) => {
 	const partnerid = url.searchParams.get('partnerid');
 	const refno = url.searchParams.get('refno');
 
-	const params = { partnerid, txntype, refno };
-	const svc = Service.lookupAsync(`${partnerid}:OnlineWaterworksBillingService`, 'waterworks');
-
 	try {
+		const params = { partnerid, txntype, refno };
+		const svc = Service.lookup(`${partnerid}:OnlineWaterworksBillingService`, 'waterworks');
 		const data = await svc.invoke('getBilling', params);
 		return {
 			body: data

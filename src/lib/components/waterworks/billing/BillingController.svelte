@@ -17,8 +17,7 @@
 
 	let title = 'Waterworks Online Billing';
 	let partner = {};
-	// let mode = 'verify-contact';
-	let mode = 'bill';
+	let mode = 'verify-contact';
 	let timeoutId = undefined;
 	let showOnlinePayment = false;
 	txntype.set('waterworks');
@@ -97,7 +96,7 @@
 		{title}
 		{partner}
 		{bill}
-		on:cancel={() => mode === 'bill'}
+		on:cancel={() => (mode = 'bill')}
 		on:submit={confirmCheckout}
 	/>
 {/if}

@@ -7,10 +7,9 @@ export const get = async ({ url }) => {
 	const billtoyear = url.searchParams.get('billtoyear');
 	const billtoqtr = url.searchParams.get('billtoqtr');
 
-	const params = { partnerid, txntype, refno, billtoyear, billtoqtr };
-	const svc = Service.lookupAsync(`${partnerid}:OnlineLandTaxBillingService`, 'rpt');
-
 	try {
+		const params = { partnerid, txntype, refno, billtoyear, billtoqtr };
+		const svc = Service.lookup(`${partnerid}:OnlineLandTaxBillingService`, 'rpt');
 		const data = await svc.invoke('getBilling', params);
 		return {
 			body: data.info

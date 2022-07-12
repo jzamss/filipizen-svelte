@@ -18,8 +18,6 @@
 	export let partner;
 	export let txntype;
 
-	const currentYear = new Date().getFullYear();
-
 	let processing = false;
 	let invalid = false;
 	let refno = '';
@@ -42,7 +40,6 @@
 
 		error = res.error;
 		processing = false;
-		console.log('res', res);
 		if (!error) {
 			dispatch('submit', res.data);
 		}
@@ -56,7 +53,7 @@
 				<Title>{title}</Title>
 				<Subtitle>Initial Information</Subtitle>
 
-				<p>Please enter a valid Tax Declaration No.</p>
+				<p>Please enter your Account No.</p>
 				<TextField
 					bind:value={refno}
 					bind:invalid

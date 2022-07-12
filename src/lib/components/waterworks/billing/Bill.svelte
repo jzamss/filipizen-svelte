@@ -45,7 +45,7 @@
 			billtoyear: $bill.billtoyear,
 			billtoqtr: $bill.billtoqtr,
 			amount: $bill.amount,
-			particulars: `Wateworks Account ${bill.acctno} Bill No. ${bill.billno}`,
+			particulars: `Wateworks Account ${$bill.acctno} Bill No. ${$bill.billno}`,
 			info: { data: $bill }
 		});
 	};
@@ -81,7 +81,7 @@
 					columns={[
 						{
 							label: 'Account',
-							expr: (item) => item.title
+							expr: (item) => item.item.title
 						},
 						{ label: 'Remarks', expr: 'remarks' },
 						{ label: 'Amount Due', expr: 'amount', type: 'numeric' }
