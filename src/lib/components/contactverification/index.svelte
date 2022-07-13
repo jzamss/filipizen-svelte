@@ -15,20 +15,30 @@
 
 	export let title = '';
 	export let partner = {};
+	export let requireName = false;
 
 	let mode = 'initial';
 	let processing = false;
 	let error = false;
 
-	let contact = { email: '', mobileno: '' };
+	let contact = { name: '', address: '', email: '', mobileno: '' };
 	let enteredOtp = '';
 	let otp = '';
 	let isResendOtp = false;
 
+	let invalidName = false;
+	let invalidAddress = false;
 	let invalidEmail = false;
 	let invalidOtp = false;
+	let validInfo = false;
 
-	$: validContact = isNonEmpty(contact.email);
+	$: if (requireName) {
+		validInfo =
+			isNonEmpty(contact.email) && isNonEmpty(contact.name) && isNonEmpty(contact.address);
+	} else {
+		validInfo = isNonEmpty(contact.email);
+	}
+
 	$: validOtp = isNonEmpty(enteredOtp) && isLength(enteredOtp, 6);
 
 	const backHandler = () => {
@@ -81,6 +91,28 @@
 					A validation key will be sent to your email. Please make sure your email is valid and you
 					have access to it.
 				</p>
+				{#if requireName}
+					<TextField
+						bind:value={contact.name}
+						bind:invalid={invalidName}
+						updateInvalid
+						label="Full Name"
+						fullWidth
+						required
+						autoFocus={true}
+						validationMsg="Full name must be specified"
+					/>
+					<TextField
+						bind:value={contact.address}
+						bind:invalid={invalidAddress}
+						updateInvalid
+						label="Address"
+						fullWidth
+						required
+						autoFocus={true}
+						validationMsg="Address must be specified"
+					/>
+				{/if}
 				<TextField
 					bind:value={contact.email}
 					bind:invalid={invalidEmail}
@@ -105,7 +137,7 @@
 						label="Next"
 						variant="raised"
 						{processing}
-						disabled={!validContact || processing}
+						disabled={!validInfo || processing}
 					/>
 				</ActionBar>
 			{/if}
