@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const locale = 'en-PH';
 export const numberFormat = (value, fraction = 2) => {
 	const options = { minimumFractionDigits: fraction };
@@ -43,3 +45,24 @@ export const timeFormat = (
 };
 
 export const range = (min, max) => [...Array(max - min + 1).keys()].map((i) => i + min);
+
+export const currentDate = dayjs();
+
+export const dateAdd = (duration, unit = 'd') => {
+	return dayjs().add(duration, unit).toISOString();
+};
+
+export const formatDate = (dt, pattern = 'MMMM D, YYYY') => {
+	return dayjs(dt).format(pattern);
+};
+
+export const isDateBefore = (dt, refDate) => {
+	return dayjs(dt).isBefore(refDate);
+};
+
+export const isDateAfter = (dt, refDate) => {
+	if (refDate) {
+		return dayjs(dt).isAfter(refDate);
+	}
+	return dayjs(dayjs(dt)).isAfter();
+};

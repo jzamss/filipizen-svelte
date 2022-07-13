@@ -13,6 +13,6 @@
 
 <style>
 	span {
-		font-size: 0.785rem;
+		font-size: 0.85rem;
 	}
 </style>

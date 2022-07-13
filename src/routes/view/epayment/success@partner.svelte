@@ -41,7 +41,7 @@
 					</div>
 					<div class="partner-info">
 						<h3>Payment Partner</h3>
-						<img src={`/filipizen/assets/${paypartnerid}.png`} alt={paypartnerid} />
+						<img src={`/resources/${paypartnerid}.png`} alt={paypartnerid} />
 					</div>
 				</div>
 				<div class="ereceipt-container">

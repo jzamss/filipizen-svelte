@@ -8,13 +8,14 @@
 	export let open = false;
 	export let title = '';
 	export let showActions = true;
+	export let showCancel = true;
 
-	const noHandler = () => {
+	const onCancel = () => {
 		dispatch('cancel');
 	};
 
-	const yesHandler = () => {
-		dispatch('ok');
+	const onAccept = () => {
+		dispatch('accept');
 	};
 </script>
 
@@ -23,8 +24,10 @@
 	<Content><slot /></Content>
 	{#if showActions}
 		<Actions>
-			<Button on:click={noHandler} label="No" />
-			<Button on:click={yesHandler} label="Yes" />
+			{#if showCancel}
+				<Button on:click={onCancel} label="Cancel" />
+			{/if}
+			<Button on:click={onAccept} label="OK" variant="raised" />
 		</Actions>
 	{/if}
 </Dialog>

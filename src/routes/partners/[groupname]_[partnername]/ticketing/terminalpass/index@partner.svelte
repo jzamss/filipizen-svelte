@@ -1,5 +1,5 @@
 <script>
-	import Ticketing from '$lib/components/ticketing/terminalpass/Ticketing.svelte';
+	import TicketingController from '$lib/components/ticketing/terminalpass/TicketingController.svelte';
 </script>
 
-<Ticketing />
+<TicketingController />

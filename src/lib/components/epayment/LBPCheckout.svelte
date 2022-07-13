@@ -36,7 +36,7 @@
 	bind:value={payType}
 	on:cancel={onCancel}
 	on:payment={onPayment}
-	imageSrc="/filipizen/assets/lbp.png"
+	imageSrc="/resources/lbp.png"
 	amount={$bill.amount}
 	{payTypes}
 	{txnFee}

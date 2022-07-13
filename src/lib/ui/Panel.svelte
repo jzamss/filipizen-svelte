@@ -2,10 +2,11 @@
 	export let column = undefined;
 	export let center = undefined;
 	export let row = undefined;
+	export let border = undefined;
 	export let style = '';
 </script>
 
-<div class:row class:column class:center {style}><slot /></div>
+<div class:row class:column class:center class:border {style}><slot /></div>
 
 <style>
 	.row {
