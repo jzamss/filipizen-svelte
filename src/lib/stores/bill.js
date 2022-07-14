@@ -1,9 +1,10 @@
-import { writable } from 'svelte/store';
+import { writable, readable } from 'svelte/store';
+
+export const origin = readable('filipizen');
 
 export const txntype = writable();
 
-// export const contact = writable({});
-export const contact = writable({ email: 'jzams@gmail.com', name: 'jdc', address: 'cebu' });
+export const contact = writable({});
 
 export const order = writable({});
 

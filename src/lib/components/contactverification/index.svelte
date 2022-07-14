@@ -99,7 +99,7 @@
 						label="Full Name"
 						fullWidth
 						required
-						autoFocus={true}
+						autoFocus={requireName}
 						validationMsg="Full name must be specified"
 					/>
 					<TextField
@@ -109,7 +109,6 @@
 						label="Address"
 						fullWidth
 						required
-						autoFocus={true}
 						validationMsg="Address must be specified"
 					/>
 				{/if}
@@ -121,7 +120,7 @@
 					label="Email Address"
 					fullWidth
 					required
-					autoFocus={true}
+					autoFocus={!requireName}
 					validationMsg="Not a valid email address"
 				/>
 				<TextField

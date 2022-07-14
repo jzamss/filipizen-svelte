@@ -12,7 +12,7 @@
 	import ActionBar from '$lib/ui/ActionBar.svelte';
 	import Spacer from '$lib/ui/Spacer.svelte';
 	import { isDateBefore, dateAdd, currentDate, formatDate } from '$lib/helpers/helper.js';
-	import terminalpass, { routes, guestinfo, loadRoutes } from '$lib/stores/terminalpass.js';
+	import { routes, loadRoutes } from '$lib/stores/terminalpass.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -20,7 +20,6 @@
 	export let partner;
 
 	let error = undefined;
-	let processing = false;
 
 	onMount(async () => {
 		await loadRoutes(partner);
@@ -105,7 +104,7 @@
 			</Panel>
 			<ActionBar>
 				<Button on:click={onCancel} label="Cancel" />
-				<Button on:click={onSubmit} label="Next" variant="raised" {processing} />
+				<Button on:click={onSubmit} label="Next" variant="raised" />
 			</ActionBar>
 		</Content>
 	</Paper>

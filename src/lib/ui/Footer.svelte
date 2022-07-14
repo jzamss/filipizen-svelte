@@ -1,8 +1,10 @@
 <script>
+	export let style = '';
+
 	const cy = new Date().getFullYear();
 </script>
 
-<footer>
+<footer {style}>
 	<div class="copyright bg-gray-200">
 		<span>@Copyright {cy} Filipizen</span>
 	</div>

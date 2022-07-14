@@ -2,8 +2,9 @@
 	import { onMount, afterUpdate } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import bill, { order, contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
 	import partners from '$lib/stores/partners.js';
+	import bill, { order, contact, payer, payoption, payoptions, txntype } from '$lib/stores/bill.js';
+	import { routes, guestinfo } from '$lib/stores/terminalpass.js';
 
 	import ContactVerification from '$lib/components/contactverification/index.svelte';
 	import CheckoutOrder from '$lib/components/epayment/CheckoutOrder.svelte';
@@ -13,16 +14,15 @@
 	import Disclaimer from './Disclaimer.svelte';
 	import TravelItinerary from './TravelItinerary.svelte';
 	import GuestProfile from './GuestProfile.svelte';
-	import Bill from './Bill.svelte';
 
 	const { groupname, partnername } = $page.params;
 
 	let title = 'Online Terminal Pass Issuance';
 	let partner = {};
 
-	//TODO:
-	// let mode = 'term-condition';
-	let mode = 'travel-itinerary';
+	txntype.set('ticketing');
+
+	let mode = 'term-condition';
 	let timeoutId = undefined;
 	let showOnlinePayment = false;
 
@@ -31,13 +31,10 @@
 		partner = partners.findByNames({ groupname, partnername });
 	});
 
-	const displayBill = (evt) => {
-		bill.set(evt.detail);
-		mode = 'bill';
-	};
-
 	const checkoutOrder = (evt) => {
-		order.set(evt.detail);
+		bill.set(evt.detail.bill);
+		guestinfo.set(evt.detail.guestInfo);
+		order.set(evt.detail.order);
 		mode = 'checkout';
 	};
 
@@ -91,25 +88,15 @@
 		{partner}
 		{title}
 		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
-		on:submit={(mode = 'guest-profile')}
+		on:submit={() => (mode = 'guest-profile')}
 	/>
 {/if}
 
-{#if mode === 'guest-profile' && partner.id}
+{#if mode === 'guest-profile'}
 	<GuestProfile
 		{partner}
 		{title}
-		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
-		on:submit={(mode = 'guest-profile')}
-	/>
-{/if}
-
-{#if mode === 'bill'}
-	<Bill
-		{title}
-		{partner}
-		{bill}
-		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
+		on:cancel={() => (mode = 'travel-itinerary')}
 		on:submit={checkoutOrder}
 	/>
 {/if}

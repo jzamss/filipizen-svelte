@@ -1,6 +1,5 @@
 <script>
 	import NavBar from './NavBar.svelte';
-	import Footer from './Footer.svelte';
 </script>
 
 <div>
@@ -9,7 +8,6 @@
 	<main>
 		<slot />
 	</main>
-	<Footer />
 </div>
 
 <style>

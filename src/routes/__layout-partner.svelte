@@ -1,6 +1,7 @@
 <script>
 	import PartnerLayout from '$lib/ui/PartnerLayout.svelte';
 	import PartnerNavBar from '$lib/ui/PartnerNavBar.svelte';
+	import Footer from '$lib/ui/Footer.svelte';
 </script>
 
 <PartnerLayout>
@@ -11,10 +12,11 @@
 		<slot />
 	</div>
 </PartnerLayout>
+<Footer />
 
 <style>
 	.content {
 		padding: 20px 20px;
-		min-height: 90vh;
+		min-height: 80vh;
 	}
 </style>

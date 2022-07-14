@@ -4,6 +4,7 @@
 	import Button from '$lib/ui/Button.svelte';
 	import Spacer from '$lib/ui/Spacer.svelte';
 	import Panel from '$lib/ui/Panel.svelte';
+	import Footer from '$lib/ui/Footer.svelte';
 	import partnerStore, { getClusters } from '$lib/stores/partners.js';
 
 	export let partners = [];
