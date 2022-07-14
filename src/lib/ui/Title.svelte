@@ -1,5 +1,4 @@
 <script>
-	export let style = '';
 	let clz = '';
 	export { clz as class };
 </script>

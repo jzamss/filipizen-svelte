@@ -3,7 +3,6 @@
 
 	export let value = null;
 	export let label = '';
-	export let variant = '';
 	export let placeholder = '';
 
 	const options = {
