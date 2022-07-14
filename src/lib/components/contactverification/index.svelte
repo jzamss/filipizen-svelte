@@ -8,8 +8,10 @@
 	import TextField from '$lib/ui/TextField.svelte';
 	import Error from '$lib/ui/Error.svelte';
 	import Dialog from '$lib/ui/Dialog.svelte';
-	import { isLength, isEmpty, isNonEmpty } from '$lib/helpers/helper.js';
+	import Phone from '$lib/ui/Phone.svelte';
+
 	import { postData } from '$lib/helpers/fetch.js';
+	import { isLength, isEmpty, isNonEmpty } from '$lib/helpers/helper.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -123,12 +125,7 @@
 					autoFocus={!requireName}
 					validationMsg="Not a valid email address"
 				/>
-				<TextField
-					bind:value={contact.mobileno}
-					type="number"
-					label="Mobile No."
-					validationMsg="Not a valid mobile no."
-				/>
+				<Phone bind:value={contact.mobileno} label="Mobile No." />
 				<ActionBar>
 					<Button on:click={backHandler} label="Back" />
 					<Button
