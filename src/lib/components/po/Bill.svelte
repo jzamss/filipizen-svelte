@@ -6,6 +6,7 @@
 	import Title from '$lib/ui/Title.svelte';
 	import Subtitle from '$lib/ui/Subtitle.svelte';
 	import Spacer from '$lib/ui/Spacer.svelte';
+	import Label from '$lib/ui/Label.svelte';
 	import Table from '$lib/ui/Table.svelte';
 	import Error from '$lib/ui/Error.svelte';
 	import Text from '$lib/ui/Text.svelte';
@@ -14,10 +15,10 @@
 
 	import { page } from '$app/stores';
 	import partners from '$lib/stores/partners.js';
-	import bill, { origin, txntype, contact, payer } from '$lib/stores/bill.js';
+	import bill, { origin, txntype, contact } from '$lib/stores/bill.js';
 
 	import { getData } from '$lib/helpers/fetch.js';
-	import { currencyFormat, formatDate } from '$lib/helpers/helper.js';
+	import { currencyFormat, formatDate, numberFormat } from '$lib/helpers/helper.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -94,7 +95,7 @@
 		<Container>
 			<Paper>
 				<Content style="display: flex; flex-direction: column; padding: 0 10px;">
-					<Title>{title}</Title>
+					<h1 class="title">{title}</h1>
 					<Subtitle>Order Information</Subtitle>
 					<Error {error} />
 					{#if loading && error}
@@ -109,24 +110,40 @@
 						</Panel>
 						<Text bind:value={$bill.remarks} label="Particulars" />
 						<Spacer />
-						<Table
-							title="Billing Information"
-							items={$bill.items}
-							columns={[
-								{
-									label: 'Particulars',
-									expr: (item) => item.item.title
-								},
-								{ label: 'Amount', expr: 'amount', type: 'numeric' },
-								{ label: 'Surcharge', expr: () => 0, type: 'numeric' },
-								{ label: 'Interest', expr: () => 0, type: 'numeric' },
-								{ label: 'Total', expr: 'amount', type: 'numeric' }
-							]}
-							totals={[
-								{ label: 'Amount Due :', colspan: 4, type: 'numeric', style: 'font-weight: bold;' },
-								{ label: currencyFormat($bill.amount), type: 'numeric' }
-							]}
-						/>
+						<div class="bill">
+							<h2>Billing Information:</h2>
+							{#each $bill.items as item}
+								<Label value={numberFormat(item.amount)} label={item.item.title} spaceBetween />
+							{/each}
+							<Spacer />
+							<Label value={currencyFormat($bill.amount)} label="TOTAL: " spaceBetween />
+						</div>
+
+						<div class="table">
+							<Table
+								title="Billing Information"
+								items={$bill.items}
+								columns={[
+									{
+										label: 'Particulars',
+										expr: (item) => item.item.title
+									},
+									{ label: 'Amount', expr: 'amount', type: 'numeric' },
+									{ label: 'Surcharge', expr: () => 0, type: 'numeric' },
+									{ label: 'Interest', expr: () => 0, type: 'numeric' },
+									{ label: 'Total', expr: 'amount', type: 'numeric' }
+								]}
+								totals={[
+									{
+										label: 'Amount Due :',
+										colspan: 4,
+										type: 'numeric',
+										style: 'font-weight: bold;'
+									},
+									{ label: currencyFormat($bill.amount), type: 'numeric' }
+								]}
+							/>
+						</div>
 
 						<ActionBar>
 							<Button on:click={onCancel} label="Cancel" />
@@ -144,3 +161,31 @@
 		</Container>
 	</div>
 {/if}
+
+<style>
+	.title {
+		font-size: 1.5rem;
+	}
+
+	.bill {
+		display: block;
+	}
+
+	.table {
+		display: none;
+	}
+
+	@media (min-width: 480px) {
+		.title {
+			font-size: 1.875rem;
+		}
+
+		.bill {
+			display: none;
+		}
+
+		.table {
+			display: block;
+		}
+	}
+</style>

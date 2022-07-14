@@ -6,6 +6,9 @@
 	--bg-color-500: rgb(205, 205, 205);
 
 	--border-color-500: #b9b9b9;
+
+	--fs-reg: 1rem;
+	--fs-md: 1.2rem;
 }
 
 h1,
@@ -47,4 +50,8 @@ body {
 .fc-black-500 {
 	color: var(--fc-black-500);
 	font-weight: 400;
+}
+
+.fs-md {
+	font-size: var(--fs-md);
 }

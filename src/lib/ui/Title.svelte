@@ -1,4 +1,10 @@
-<h1><slot /></h1>
+<script>
+	export let style = '';
+	let clz = '';
+	export { clz as class };
+</script>
+
+<h1 class={clz}><slot /></h1>
 
 <style>
 	h1 {
