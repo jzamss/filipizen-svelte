@@ -121,6 +121,7 @@
 			processing = true;
 			const bill = await getBilling();
 			const order = buildOrder(bill);
+			bill.paymentdetails = order.paymentdetails;
 			dispatch('submit', { guestInfo, bill, order });
 		} catch (err) {
 			error = err;

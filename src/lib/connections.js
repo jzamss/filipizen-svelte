@@ -1,13 +1,13 @@
-const cloud_server_ip = import.meta.env.VITE_CLOUD_SERVER_IP || process.env.cloud_server_ip;
+const cloud_server_ip = process.env.cloud_server_ip || import.meta.env.VITE_CLOUD_SERVER_IP;
 
 const cloud_filipizen_server_host =
-	import.meta.env.VITE_CLOUD_FILIPIZEN_SERVER_HOST || process.env.cloud_filipizen_server_host;
+	process.env.cloud_filipizen_server_host || import.meta.env.VITE_CLOUD_FILIPIZEN_SERVER_HOST;
 
 const cloud_gdx_node_host =
-	import.meta.env.VITE_CLOUD_GDX_NODE_HOST || process.env.cloud_gdx_node_host;
+	process.env.cloud_gdx_node_host || import.meta.env.VITE_CLOUD_GDX_NODE_HOST;
 
 const cloud_proxy_server_host =
-	import.meta.env.VITE_CLOUD_PROXY_SERVER_HOST || process.env.cloud_proxy_server_host;
+	process.env.cloud_proxy_server_host || import.meta.env.VITE_CLOUD_PROXY_SERVER_HOST;
 
 const cloudFilipizenServerHost = cloud_filipizen_server_host;
 const cloudGdxNodeServerHost = cloud_gdx_node_host;

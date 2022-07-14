@@ -106,7 +106,7 @@
 		{title}
 		{partner}
 		{bill}
-		on:cancel={() => mode === 'bill'}
+		on:cancel={() => mode === 'guest-profile'}
 		on:submit={confirmCheckout}
 	/>
 {/if}
@@ -115,7 +115,7 @@
 	<SelectPaymentPartner
 		{partner}
 		{bill}
-		on:cancel={() => mode === 'bill'}
+		on:cancel={() => mode === 'guest-profile'}
 		on:select={selectPaymentPartner}
 	/>
 {/if}

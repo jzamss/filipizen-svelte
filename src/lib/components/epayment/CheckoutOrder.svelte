@@ -87,6 +87,9 @@
 					validationMsg="Address is required"
 				/>
 				<p class="payment">Payment Details</p>
+				{#if $bill && $bill.paymentdetails}
+					<p class="payment-detail">{$bill && $bill.paymentdetails}</p>
+				{/if}
 				<p class="amount">Php {numberFormat($bill.amount)}</p>
 				<ActionBar>
 					<Button on:click={onCancel} label="Back" />
@@ -107,16 +110,25 @@
 	.confirm {
 		font-size: 0.875rem;
 		font-weight: 400;
-		margin-bottom: 20px;
+		margin-bottom: 15px;
 		text-align: center;
 		opacity: 0.8;
 		line-height: 1.25rem;
 	}
 
 	.payment {
+		margin-top: 10px;
 		text-align: center;
 		font-weight: 500;
 		opacity: 0.8;
+	}
+
+	.payment-detail {
+		font-size: 0.825rem;
+		font-weight: 700;
+		opacity: 0.7;
+		text-align: center;
+		margin: 5px 0;
 	}
 
 	.amount {
