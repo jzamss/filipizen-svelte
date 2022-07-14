@@ -3,15 +3,12 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	import bill, { order, txntype, contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
+	import bill, { order, txntype, payer, payoption, payoptions } from '$lib/stores/bill.js';
 	import partners from '$lib/stores/partners.js';
 
-	import ContactVerification from '$lib/components/contactverification/index.svelte';
 	import CheckoutOrder from '$lib/components/epayment/CheckoutOrder.svelte';
 	import SelectPaymentPartner from '$lib/components/epayment/SelectPaymentPartner.svelte';
 	import OnlinePayment from '$lib/components/epayment/OnlinePayment.svelte';
-	import Container from '$lib/ui/Container.svelte';
-	import Initial from './Initial.svelte';
 	import Bill from './Bill.svelte';
 
 	const { groupname, partnername, refno } = $page.params;
@@ -54,27 +51,6 @@
 <svelte:head>
 	<title>Filipizen - {title}</title>
 </svelte:head>
-
-{#if mode === 'verify-contact'}
-	<ContactVerification
-		{title}
-		{partner}
-		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
-		on:submit={(evt) => {
-			contact.set(evt.detail);
-			mode = 'initial';
-		}}
-	/>
-{/if}
-
-{#if mode === 'initial'}
-	<Initial
-		{partner}
-		{title}
-		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
-		on:submit={displayBill}
-	/>
-{/if}
 
 {#if mode === 'bill'}
 	<Bill
