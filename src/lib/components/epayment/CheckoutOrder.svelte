@@ -12,6 +12,8 @@
 	import { getData } from '$lib/helpers/fetch.js';
 	import { numberFormat, isNonEmpty } from '$lib/helpers/helper.js';
 
+	import { contact } from '$lib/stores/bill.js';
+
 	const dispatch = createEventDispatcher();
 
 	export let title;
@@ -29,8 +31,8 @@
 	});
 
 	let payer = {
-		paidby: '',
-		paidbyaddress: ''
+		paidby: $contact.paidby,
+		paidbyaddress: $contact.paidbyaddress
 	};
 
 	let invalid = {

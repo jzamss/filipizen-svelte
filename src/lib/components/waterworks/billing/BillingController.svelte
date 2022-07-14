@@ -105,7 +105,7 @@
 	<SelectPaymentPartner
 		{partner}
 		{bill}
-		on:cancel={() => mode === 'bill'}
+		on:cancel={() => (mode = 'bill')}
 		on:select={selectPaymentPartner}
 	/>
 {/if}

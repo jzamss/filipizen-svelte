@@ -5,8 +5,7 @@
 	import { Image } from '@smui/image-list';
 	import Paper, { Content } from '@smui/paper';
 	import Checkbox from '$lib/ui/Checkbox.svelte';
-	import Label from '$lib/ui/Label.svelte';
-	import Spacer from '$lib/ui/Spacer.svelte';
+	import Text from '$lib/ui/Text.svelte';
 	import { numberFormat } from '$lib/helpers/helper.js';
 	import { order, payer, payoptions } from '$lib/stores/bill.js';
 
@@ -36,11 +35,12 @@
 		<Paper>
 			<Content style="display: flex; flex-direction: column; padding: 0 10px;">
 				<div class="order-title">Your Order</div>
-				<Label bind:value={partner.title} label="Agency" />
-				<Label bind:value={particulars} label="Particulars" />
-				<Label bind:value={$payer.paidby} label="Paid By" />
-				<Label bind:value={amount} label="Amount" />
-				<Spacer />
+				<div class="order-info">
+					<Text bind:value={partner.title} label="Agency" />
+					<Text bind:value={particulars} label="Particulars" />
+					<Text bind:value={$payer.paidby} label="Paid By" />
+					<Text bind:value={amount} label="Amount" />
+				</div>
 				<Checkbox
 					bind:checked={agreed}
 					label="I acknowledge and agree to the Terms and Conditions of this e-payment facility."
@@ -71,6 +71,13 @@
 
 	.order-container {
 		max-width: 440px;
+	}
+
+	.order-info {
+		border: 1px solid #aaaaaa;
+		padding: 10px 20px;
+		border-radius: 5px;
+		margin-bottom: 10px;
 	}
 
 	.payoptions-container {

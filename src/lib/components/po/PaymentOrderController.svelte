@@ -1,8 +1,9 @@
 <script>
-	import { onMount, afterUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import bill, { order, contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
+
+	import bill, { order, txntype, contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
 	import partners from '$lib/stores/partners.js';
 
 	import ContactVerification from '$lib/components/contactverification/index.svelte';
@@ -13,12 +14,14 @@
 	import Initial from './Initial.svelte';
 	import Bill from './Bill.svelte';
 
-	const { groupname, partnername } = $page.params;
+	const { groupname, partnername, refno } = $page.params;
 
-	let title = 'Business Online Billing';
+	let title = 'Online Payment Order';
 	let partner = {};
 
-	let mode = 'verify-contact';
+	txntype.set('po');
+
+	let mode = refno ? 'bill' : 'verify-contact';
 	let timeoutId = undefined;
 	let showOnlinePayment = false;
 
@@ -26,11 +29,6 @@
 		await partners.load();
 		partner = partners.findByNames({ groupname, partnername });
 	});
-
-	const displayBill = (evt) => {
-		bill.set(evt.detail);
-		mode = 'bill';
-	};
 
 	const checkoutOrder = (evt) => {
 		order.set(evt.detail);
@@ -58,17 +56,15 @@
 </svelte:head>
 
 {#if mode === 'verify-contact'}
-	<Container>
-		<ContactVerification
-			{title}
-			{partner}
-			on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
-			on:submit={(evt) => {
-				contact.set(evt.detail);
-				mode = 'initial';
-			}}
-		/>
-	</Container>
+	<ContactVerification
+		{title}
+		{partner}
+		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
+		on:submit={(evt) => {
+			contact.set(evt.detail);
+			mode = 'initial';
+		}}
+	/>
 {/if}
 
 {#if mode === 'initial'}
@@ -84,7 +80,7 @@
 	<Bill
 		{title}
 		{partner}
-		{bill}
+		{refno}
 		on:cancel={() => goto(`/partners/${groupname}_${partnername}`)}
 		on:submit={checkoutOrder}
 	/>

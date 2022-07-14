@@ -16,7 +16,7 @@
 <style>
 	div {
 		width: 100%;
-		padding: 10px 0;
+		padding: 10px 5px;
 		margin-bottom: 10px;
 		font-size: 0.825rem;
 		font-weight: 500;
