@@ -31,8 +31,8 @@
 	});
 
 	let payer = {
-		paidby: $contact.paidby,
-		paidbyaddress: $contact.paidbyaddress
+		paidby: $contact.name ? $contact.name : $bill.paidby,
+		paidbyaddress: $contact.address ? $contact.address : $bill.paidbyaddress
 	};
 
 	let invalid = {

@@ -1,5 +1,5 @@
 <script>
-	import { onMount, afterUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import bill, { order, contact, payer, payoption, payoptions } from '$lib/stores/bill.js';
