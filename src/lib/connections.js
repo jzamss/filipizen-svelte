@@ -1,28 +1,14 @@
 const cloud_server_ip = process.env.cloud_server_ip || import.meta.env.VITE_CLOUD_SERVER_IP;
 
-const cloud_filipizen_server_host =
-	process.env.cloud_filipizen_server_host || import.meta.env.VITE_CLOUD_FILIPIZEN_SERVER_HOST;
-
 const cloud_gdx_node_host =
 	process.env.cloud_gdx_node_host || import.meta.env.VITE_CLOUD_GDX_NODE_HOST;
 
-const cloud_proxy_server_host =
-	process.env.cloud_proxy_server_host || import.meta.env.VITE_CLOUD_PROXY_SERVER_HOST;
-
-const cloudFilipizenServerHost = cloud_filipizen_server_host;
-const cloudGdxNodeServerHost = cloud_gdx_node_host;
-const cloudProxyServerHost = cloud_proxy_server_host;
-
 console.log('cloud_server_ip: ', cloud_server_ip);
-console.log('cloudFilipizenServerHost', cloudFilipizenServerHost);
-console.log('cloudGdxNodeServerHost', cloudGdxNodeServerHost);
-console.log('cloudProxyServerHost', cloudProxyServerHost);
+console.log('cloud_gdx_node_host', cloud_gdx_node_host);
 
 const connections = {
 	cloud_server_ip,
-	cloudFilipizenServerHost,
-	cloudGdxNodeServerHost,
-	cloudProxyServerHost,
+	cloudGdxNodeHost: cloud_gdx_node_host,
 
 	default: {
 		'app.host': `${cloud_server_ip}:9070`,
