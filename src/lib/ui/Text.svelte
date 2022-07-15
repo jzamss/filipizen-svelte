@@ -33,7 +33,7 @@
 		padding: 6px 0 7px;
 		border: 0;
 		font: inherit;
-		height: 1.1876em;
+		min-height: 1.1876em;
 	}
 
 	.container:hover {
