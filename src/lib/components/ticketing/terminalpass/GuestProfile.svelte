@@ -136,7 +136,7 @@
 			<Title>{title}</Title>
 			<Subtitle>Guest Profile</Subtitle>
 			<Error {error} />
-			<Integer bind:value={guestInfo.numadult} label="No. of Adults" />
+			<Integer bind:value={guestInfo.numadult} label="No. of Adults" autoFocus />
 			<Integer bind:value={guestInfo.numchildren} label="No. of Children (5 years and below)" />
 			<Integer bind:value={guestInfo.numnonfil} label="No. of Tourists (above 5 years old)" />
 			<Spacer />

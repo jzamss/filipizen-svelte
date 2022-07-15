@@ -1,9 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import TextField from '@smui/textfield';
-	import HelperText from '@smui/textfield/helper-text';
 
-	export let value = 0;
+	export let value = null;
 	export let invalid = false;
 	export let validationMsg = '';
 	export let autoFocus = false;

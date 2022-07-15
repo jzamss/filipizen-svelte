@@ -22,11 +22,11 @@ export const get = async ({ params, request, url }) => {
 			error.partnername = org?.name;
 			error.groupname = org?.group?.name;
 			const errorArgs = encodeArgs(error);
-			errorUrl = `${connections.cloudGdxNodeHost}/view/epayment/error?${errorArgs}`;
+			errorUrl = `${connections.cloudFilipizenHost}/view/epayment/error?${errorArgs}`;
 			console.log('ErrorUrl', errorUrl);
 			return Response.redirect(errorUrl);
 		} catch (err) {
-			errorUrl = `${connections.cloudGdxNodeHost}/view/epayment/error?message=${errorMsg}`;
+			errorUrl = `${connections.cloudFilipizenHost}/view/epayment/error?message=${errorMsg}`;
 			console.log('ErrorUrl', errorUrl);
 			console.log('epayment [ERROR]', err);
 			return Response.redirect(errorUrl);
@@ -42,11 +42,11 @@ export const get = async ({ params, request, url }) => {
 			console.log('args=================================');
 			console.log('args', args);
 			console.log('args=================================');
-			successUrl = `${connections.cloudGdxNodeHost}/view/epayment/success?${args}`;
+			successUrl = `${connections.cloudFilipizenHost}/view/epayment/success?${args}`;
 			console.log('successUrl', successUrl);
 			return Response.redirect(successUrl);
 		} catch (err) {
-			errorUrl = `${connections.cloudGdxNodeHost}/view/epayment/error?message=${errorMsg}`;
+			errorUrl = `${connections.cloudFilipizenHost}/view/epayment/error?message=${errorMsg}`;
 			console.log('errorUrl', errorUrl);
 			console.log('epayment [ERROR]', err);
 			return Response.redirect(errorUrl);

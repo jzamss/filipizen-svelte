@@ -1,13 +1,18 @@
 const cloud_server_ip = process.env.cloud_server_ip || import.meta.env.VITE_CLOUD_SERVER_IP;
 
+const cloud_filipizen_host =
+	process.env.cloud_filipizen_host || import.meta.env.VITE_CLOUD_FILIPIZEN_HOST;
+
 const cloud_gdx_node_host =
 	process.env.cloud_gdx_node_host || import.meta.env.VITE_CLOUD_GDX_NODE_HOST;
 
 console.log('cloud_server_ip: ', cloud_server_ip);
+console.log('cloud_filipizen_host', cloud_filipizen_host);
 console.log('cloud_gdx_node_host', cloud_gdx_node_host);
 
 const connections = {
 	cloud_server_ip,
+	cloudFilipizenHost: cloud_filipizen_host,
 	cloudGdxNodeHost: cloud_gdx_node_host,
 
 	default: {

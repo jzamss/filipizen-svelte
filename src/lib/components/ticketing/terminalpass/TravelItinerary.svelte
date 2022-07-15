@@ -1,5 +1,6 @@
 <script>
 	import { createEventDispatcher, onMount } from 'svelte';
+	import CircularProgress from '@smui/circular-progress';
 	import Paper, { Content } from '@smui/paper';
 	import Button from '$lib/ui/Button.svelte';
 	import Error from '$lib/ui/Error.svelte';
@@ -18,11 +19,13 @@
 
 	export let title;
 	export let partner;
+	export let loading = true;
 
 	let error = undefined;
 
 	onMount(async () => {
 		await loadRoutes(partner);
+		loading = false;
 	});
 
 	const onCancel = () => {
@@ -87,25 +90,55 @@
 		<Content style="display: flex; flex-direction: column; padding: 0 10px;">
 			<Title>{title}</Title>
 			<Subtitle>Travel Itinerary</Subtitle>
-			<h3>Issue QR Code for use in:</h3>
-			<Spacer />
-			<Error {error} />
-			<Panel>
-				{#each $routes as route (route.objid)}
-					<Panel row style="justify-conten: space-between; margin-bottom: 10px;">
-						<Checkbox bind:checked={route.selected} label={`${route.name}`} />
-						<Date
-							bind:value={route.traveldate}
-							placeholder="mm/dd/yyyy"
-							disabled={!route.selected}
-						/>
-					</Panel>
-				{/each}
-			</Panel>
-			<ActionBar>
-				<Button on:click={onCancel} label="Cancel" />
-				<Button on:click={onSubmit} label="Next" variant="raised" />
-			</ActionBar>
+			{#if loading}
+				<Panel center>
+					<CircularProgress indeterminate style="height: 24px; width: 24px;" />
+				</Panel>
+			{:else}
+				<h3>Issue QR Code for use in:</h3>
+				<Spacer />
+				<Error {error} />
+				<Panel>
+					{#each $routes as route (route.objid)}
+						<div class="itinerary-container">
+							<Checkbox bind:checked={route.selected} label={`${route.name}`} />
+							<div class="date">
+								<Date
+									bind:value={route.traveldate}
+									placeholder="mm/dd/yyyy"
+									disabled={!route.selected}
+								/>
+							</div>
+						</div>
+					{/each}
+				</Panel>
+				<ActionBar>
+					<Button on:click={onCancel} label="Cancel" />
+					<Button on:click={onSubmit} label="Next" variant="raised" />
+				</ActionBar>
+			{/if}
 		</Content>
 	</Paper>
 </Container>
+
+<style>
+	.itinerary-container {
+		display: block;
+	}
+
+	.date {
+		margin-left: 50px;
+		margin-bottom: 20px;
+	}
+
+	@media (min-width: 460px) {
+		.itinerary-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.date {
+			margin: 0;
+		}
+	}
+</style>
