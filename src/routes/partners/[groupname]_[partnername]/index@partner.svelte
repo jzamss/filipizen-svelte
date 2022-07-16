@@ -1,8 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import partners from '$lib/stores/partners.js';
 	import { getModules } from '$lib/modules.js';
+
+	console.log('page', $page);
 
 	const { partnername, groupname } = $page.params;
 	let partner = {};
@@ -12,6 +15,11 @@
 		await partners.load();
 		partner = partners.findByNames({ partnername, groupname });
 		modules = getModules(partner);
+
+		if (modules.length === 0) {
+			const { pathname } = $page.url;
+			goto(`${pathname}/maintenance`);
+		}
 	});
 </script>
 
