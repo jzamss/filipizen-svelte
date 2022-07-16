@@ -34,7 +34,9 @@
 
 	const validateTravelDate = () => {
 		const route = $routes[0];
-		if (route.selected && !route.traveldate) {
+		if (!route.selected) return;
+
+		if (!route.traveldate) {
 			throw 'Travel date must be specified';
 		}
 
@@ -46,7 +48,9 @@
 
 	const validateReturnDate = () => {
 		const route = $routes[1];
-		if (route.selected && !route.traveldate) {
+		if (!route.selected) return;
+
+		if (!route.traveldate) {
 			throw 'Return date must be specified';
 		}
 		const refDate = dateAdd(-1);
@@ -100,9 +104,13 @@
 				<Error {error} />
 				<Panel>
 					{#each $routes as route (route.objid)}
+						<div class="itinerary-heading">
+							<p class="date">Travel Date</p>
+						</div>
 						<div class="itinerary-container">
 							<Checkbox bind:checked={route.selected} label={`${route.name}`} />
-							<div class="date">
+							<div class="date-container">
+								<p class="date">Travel Date</p>
 								<Date
 									bind:value={route.traveldate}
 									placeholder="mm/dd/yyyy"
@@ -124,14 +132,32 @@
 <style>
 	.itinerary-container {
 		display: block;
+		margin-bottom: 1rem;
+		border: 1px solid #bebebe;
+		border-radius: 5px;
+	}
+
+	.itinerary-heading > p {
+		margin-right: 85px;
+		font-size: 0.725rem;
+		font-weight: 500;
+		position: absolute;
+		top: -10px;
+		opacity: 0.8;
+	}
+
+	.date-container {
+		display: block;
+		margin: 0px 15px 10px;
 	}
 
 	.date {
-		margin-left: 50px;
-		margin-bottom: 20px;
+		font-size: 0.725rem;
+		font-weight: 500;
+		opacity: 0.8;
 	}
 
-	@media (min-width: 460px) {
+	@media (min-width: 480px) {
 		.itinerary-container {
 			display: flex;
 			justify-content: space-between;
