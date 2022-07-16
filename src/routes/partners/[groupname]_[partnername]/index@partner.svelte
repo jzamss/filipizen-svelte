@@ -5,8 +5,6 @@
 	import partners from '$lib/stores/partners.js';
 	import { getModules } from '$lib/modules.js';
 
-	console.log('page', $page);
-
 	const { partnername, groupname } = $page.params;
 	let partner = {};
 	let modules = [];

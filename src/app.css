@@ -3,14 +3,22 @@
 :root {
 	--fc-black-500: rgba(0, 0, 0, 0.65);
 
+	--fc-green-800: #00695f;
+
 	--bg-color-500: rgb(205, 205, 205);
 
 	--border-color-500: #b9b9b9;
+	--b-green-900: rgba(0, 79, 0, 0.905);
 
-	--fs-reg: 1rem;
+	--fs-xs: 0.625rem;
 	--fs-sm: 0.875rem;
 	--fs-reg: 1rem;
 	--fs-md: 1.2rem;
+
+	--fw-400: 400;
+	--fw-500: 500;
+	--fw-700: 700;
+	--fw-800: 800;
 }
 
 h1,
@@ -53,8 +61,21 @@ body {
 	color: var(--fc-black-500);
 }
 
+.fc-green-800 {
+	color: var(--fc-green-800);
+}
+
+.fc-blue-800 {
+	color: var(--fc-blue-800);
+}
+
 .text-center {
 	text-align: center;
+}
+
+.fs-xs {
+	font-size: var(--fs-xs);
+	line-height: 1.25rem;
 }
 
 .fs-sm {
@@ -68,4 +89,20 @@ body {
 
 .fs-md {
 	font-size: var(--fs-md);
+}
+
+.fw-reg {
+	font-weight: var(--fw-400);
+}
+
+.fw-semibold {
+	font-weight: var(--fw-500);
+}
+
+.fw-bold {
+	font-weight: var(--fw-700);
+}
+
+.fw-extrabold {
+	font-weight: var(--fw-800);
 }

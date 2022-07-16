@@ -41,28 +41,19 @@
 					<Radio bind:group={value} value={payType.type} label={payType.caption} />
 				{/each}
 			</div>
-			<Spacer />
-			<Label
-				value={`PHP ${numberFormat(amount)}`}
-				label="Amount"
-				labelWidth={300}
-				spaceBetween
-				valueStyle="font-weight:bold; opacity:0.8;"
-			/>
-			<Label
-				value={`PHP ${numberFormat(txnFee)}`}
-				label="Payment Partner Service Fee"
-				labelWidth={300}
-				spaceBetween
-				valueStyle="font-weight:bold; opacity:0.8;"
-			/>
-			<Label
-				value={`PHP ${numberFormat(total)}`}
-				label="Total"
-				labelWidth={300}
-				spaceBetween
-				valueStyle="font-weight:bold; opacity:0.8;"
-			/>
+			<Spacer height={10} />
+			<div class="value-container">
+				<span class="fs-xs fw-semibold fc-green-800">Amount</span>
+				<p>{`PHP ${numberFormat(amount)}`}</p>
+			</div>
+			<div class="value-container">
+				<span class="fs-xs fw-semibold fc-green-800">Payment Partner Service Fee</span>
+				<p>{`PHP ${numberFormat(txnFee)}`}</p>
+			</div>
+			<div class="value-container">
+				<span class="fs-xs fw-semibold fc-green-800">TOTAL</span>
+				<p class="total">{`PHP ${numberFormat(total)}`}</p>
+			</div>
 			<ActionBar>
 				<Button on:click={onCancel} label="Cancel" />
 				<Button on:click={onPayment} label="Proceed Payment" variant="raised" />
@@ -73,12 +64,28 @@
 
 <style>
 	img {
-		width: 140px;
+		width: 120px;
 	}
 
 	h2 {
 		font-size: 1rem;
 		font-weight: 500;
 		margin-bottom: 5px;
+	}
+
+	.value-container {
+		display: block;
+	}
+
+	.value-container > p {
+		border: 1px solid #009688;
+		padding: 2px 10px;
+		border-radius: 2px;
+		font-weight: 600;
+	}
+
+	.total {
+		font-size: 1.25rem;
+		opacity: 0.8;
 	}
 </style>
